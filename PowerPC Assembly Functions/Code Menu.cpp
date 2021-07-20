@@ -71,6 +71,7 @@ int BUFFER_P4_INDEX = -1;
 int SCALE_INDEX = -1;
 int SPEED_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
+int BALLOON_STOCK_INDEX = -1;
 
 //constant overrides
 vector<ConstantPair> constantOverrides;
@@ -265,6 +266,7 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
 	SpecialModeLines.push_back(new Selection("Big Head Mode", { "Off", "On", "Larger", "Largest", "Largerest" }, 0, BIG_HEAD_INDEX));
+	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
 	Page SpecialModePage("Special Modes", SpecialModeLines);
 	//main page
 	vector<Line*> MainLines;
@@ -877,6 +879,9 @@ void CreateMenu(Page MainPage)
 	//Scale Modifier
 	AddValueToByteArray(SPEED_INDEX, Header);
 	
+	//Balloon stocks
+	AddValueToByteArray(BALLOON_STOCK_INDEX, Header);
+
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
 	DSB[0x4 / 4] = 0xFFFFFFFF;
