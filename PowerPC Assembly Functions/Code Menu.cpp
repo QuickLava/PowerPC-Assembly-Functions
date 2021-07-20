@@ -596,7 +596,7 @@ void ActualCodes()
 		} Else(); If(Reg1, EQUAL_I, 1); //random
 		{
 #if BUILD_TYPE == PROJECT_PLUS
-			vector<int> alts = { 0, BUTTON_L, BUTTON_R, BUTTON_Z, BUTTON_Y };
+			vector<int> alts = { 0, BUTTON_A, BUTTON_L, BUTTON_R, BUTTON_Z, BUTTON_Y, BUTTON_START, BUTTON_X, BUTTON_DPAD, BUTTON_B};
 #else
 			vector<int> alts = { 0, BUTTON_L, BUTTON_Z, BUTTON_START };
 #endif
