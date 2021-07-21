@@ -282,7 +282,7 @@ void CodeMenu()
 #endif
 
 #if BUILD_TYPE == PROJECT_PLUS
-	MainLines.push_back(new Comment("P+ Tournament Addition Code Menu", &MENU_TITLE_CHECK_LOCATION));
+	MainLines.push_back(new Comment("Desiac's Testing Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #else
 	MainLines.push_back(new Comment("Legacy TE 2.5 Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #endif
@@ -300,6 +300,7 @@ void CodeMenu()
 	//	MainLines.push_back(new Selection("Endless Friendlies", { "OFF", "Same Stage", "Random Stage", "Round Robin" }, 0, INFINITE_FRIENDLIES_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Mode", { "OFF", "All Stay", "Winner Stays", "Loser Stays", "Rotation"}, 0, ENDLESS_FRIENDLIES_MODE_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Stage Selection", { "Random", "Same" }, 0, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX));
+	MainLines.push_back(new Comment("Random 1-1"));
 	//MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Autoskip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
@@ -1029,7 +1030,7 @@ void ControlCodeMenu()
 	LoadHalfToReg(Reg1, MENU_TITLE_CHECK_LOCATION + 7 + Line::COMMENT_LINE_TEXT_START);
 	If(Reg1, NOT_EQUAL_I_L, 0x7320); //+
 	{
-		//JumpToLabel(NotLoaded); //TODO: don't comment out -------------------------------------------------------------------------------------------------------------
+		JumpToLabel(NotLoaded);
 	}EndIf();
 #else
 	LoadHalfToReg(Reg1, MENU_TITLE_CHECK_LOCATION + 7 + Line::COMMENT_LINE_TEXT_START);
@@ -1333,10 +1334,10 @@ void ControlCodeMenu()
 
 	ApplyMenuSetting(CAMERA_LOCK_INDEX, 0x80583FF8 + 3, Reg1, Reg2, 1);
 
-	if (RANDOM_1_TO_1_INDEX != -1) {
+	/*if (RANDOM_1_TO_1_INDEX != -1) {
 		ApplyMenuSetting(RANDOM_1_TO_1_INDEX, RANDOM_1_TO_1_CPP_FLAG_LOC, Reg1, Reg2, 1);
 		printf("1 to 1 location %0X\n", RANDOM_1_TO_1_CPP_FLAG_LOC);
-	}
+	}*/
 
 	Label(SkipDebugNegation);
 

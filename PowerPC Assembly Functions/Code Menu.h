@@ -232,6 +232,8 @@ static const int BALLOON_STOCK_LOC = SPEED_LOC + 4; //4
 
 static const int ALL_CHARS_WALLJUMP_LOC = BALLOON_STOCK_LOC + 4; //4
 
+//static const int RANDOM_1_TO_1_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //4
+
 static const int DRAW_SETTINGS_BUFFER_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //0x200
 
 
