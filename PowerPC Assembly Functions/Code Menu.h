@@ -71,6 +71,7 @@ extern int BUFFER_P4_INDEX;
 extern int SCALE_INDEX;
 extern int SPEED_INDEX;
 extern int BALLOON_STOCK_INDEX;
+extern int ALL_CHARS_WALLJUMP_INDEX;
 
 struct ConstantPair {
 	int address;
@@ -229,7 +230,9 @@ static const int SPEED_LOC = SCALE_LOC + 4; //4
 
 static const int BALLOON_STOCK_LOC = SPEED_LOC + 4; //4
 
-static const int DRAW_SETTINGS_BUFFER_LOC = BALLOON_STOCK_LOC + 4; //0x200
+static const int ALL_CHARS_WALLJUMP_LOC = BALLOON_STOCK_LOC + 4; //4
+
+static const int DRAW_SETTINGS_BUFFER_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //0x200
 
 
 
