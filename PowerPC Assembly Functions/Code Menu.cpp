@@ -90,6 +90,9 @@ int SHIELD_SIZE_MULTIPLIER_INDEX = -1;
 int SHIELD_TILT_MULTIPLIER_INDEX = -1;
 int KNOCKBACK_DECAY_MULTIPLIER_INDEX = -1;
 int WALL_BOUNCE_KNOCKBACK_MULTIPLIER_INDEX = -1;
+int CROUCH_KNOCKBACK_INDEX = -1; //new WI
+int SHIELD_DECAY_INDEX = -1; //new WI
+int SHIELD_REGEN_INDEX = -1; //new WI
 
 
 int SHIELD_RED_1 = -1;
@@ -141,6 +144,23 @@ void CodeMenu()
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Print("Tag Hex: %s", { &P1_TAG_STRING_INDEX }));
 	P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	P1Lines.push_back(new Comment(""));
+	P1Lines.push_back(new Integer("P1 1st Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
+	P1Lines.push_back(new Integer("P1 1st Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_1));
+	P1Lines.push_back(new Integer("P1 1st Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_1));
+	P1Lines.push_back(new Integer("P1 1st Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_1));
+	P1Lines.push_back(new Integer("P1 2nd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_2));
+	P1Lines.push_back(new Integer("P1 2nd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_2));
+	P1Lines.push_back(new Integer("P1 2nd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_2));
+	P1Lines.push_back(new Integer("P1 2nd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_2));
+	P1Lines.push_back(new Integer("P1 3rd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_3));
+	P1Lines.push_back(new Integer("P1 3rd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_3));
+	P1Lines.push_back(new Integer("P1 3rd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_3));
+	P1Lines.push_back(new Integer("P1 3rd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_3));
+	P1Lines.push_back(new Integer("P1 4th Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_4));
+	P1Lines.push_back(new Integer("P1 4th Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
+	P1Lines.push_back(new Integer("P1 4th Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
+	P1Lines.push_back(new Integer("P1 4th Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));
 
 	for (auto x : P1Lines) {
 		cout << x->Text << endl;
@@ -229,19 +249,25 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
 	ConstantsLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
+	ConstantsLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, (2. / 3.), (1. / 12.), CROUCH_KNOCKBACK_INDEX, "%.2fx"));
+	constantOverrides.emplace_back(0x80B88348, CROUCH_KNOCKBACK_INDEX);
 	ConstantsLines.push_back(new Comment("Shield mechanics"));
 	ConstantsLines.push_back(new Floating("Minimum Shield Size Scale", -999, 999, 0.15, .02, MINIMUM_SHIELD_SIZE_SCALING_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88444, MINIMUM_SHIELD_SIZE_SCALING_INDEX);
 	ConstantsLines.push_back(new Floating("Maximum Sheild Size Multiplier", -999, 999, 1, .05, SHIELD_SIZE_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88478, SHIELD_SIZE_MULTIPLIER_INDEX);
+	ConstantsLines.push_back(new Floating("Shield Decay Rate", -1, 2, 0.280000001192, .04, SHIELD_DECAY_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88450, SHIELD_DECAY_INDEX);
+	ConstantsLines.push_back(new Floating("Shield Regen Rate", 0, 1, 0.07, .01, SHIELD_REGEN_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88454, SHIELD_REGEN_INDEX);
 	ConstantsLines.push_back(new Floating("Base Shield Damage", -999, 999, 0, 1, SHIELD_BASE_DAMAGE_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88460, SHIELD_BASE_DAMAGE_INDEX);
 	ConstantsLines.push_back(new Floating("Shield Damage Multiplier", -999, 999, 1, .02, SHIELD_DAMAGE_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
 	ConstantsLines.push_back(new Floating("Shield Tilt Multiplier", -999, 999, 0.5, .05, SHIELD_TILT_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88484, SHIELD_TILT_MULTIPLIER_INDEX);
+	ConstantsLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
 	ConstantsLines.push_back(new Comment("Other"));
-	//ValueLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
 	ConstantsLines.push_back(new Toggle("Universal Walljumps", false, ALL_CHARS_WALLJUMP_INDEX));
 	ConstantsLines.push_back(new Floating("Walljump Horizontal Multiplier", -999, 999, 0.9, .05, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88420, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX);
@@ -271,7 +297,7 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
 	SpecialModeLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
-	SpecialModeLines.push_back(new Selection("Staling Toggle", { "Default", "ON", "OFF" }, 0, STALING_TOGGLE_INDEX));
+	SpecialModeLines.push_back(new Selection("Move Staling", { "ON (Versus)", "ON (All Modes)", "OFF" }, 0, STALING_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
 	Page SpecialModePage("Special Modes", SpecialModeLines);
 	//main page
@@ -321,24 +347,6 @@ void CodeMenu()
 
 	
 	//MainLines.push_back(new Print("%s", {&tets}));
-	
-	
-	/*MainLines.push_back(new Integer("P1 1st Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
-	MainLines.push_back(new Integer("P1 1st Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_1));
-	MainLines.push_back(new Integer("P1 1st Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_1));
-	MainLines.push_back(new Integer("P1 1st Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_1));
-	MainLines.push_back(new Integer("P1 2nd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_2));
-	MainLines.push_back(new Integer("P1 2nd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_2));
-	MainLines.push_back(new Integer("P1 2nd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_2));
-	MainLines.push_back(new Integer("P1 2nd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_2));
-	MainLines.push_back(new Integer("P1 3rd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_3));
-	MainLines.push_back(new Integer("P1 3rd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_3));
-	MainLines.push_back(new Integer("P1 3rd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_3));
-	MainLines.push_back(new Integer("P1 3rd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_3));
-	MainLines.push_back(new Integer("P1 4th Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_4));
-	MainLines.push_back(new Integer("P1 4th Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
-	MainLines.push_back(new Integer("P1 4th Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
-	MainLines.push_back(new Integer("P1 4th Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));*/
 
 
 
