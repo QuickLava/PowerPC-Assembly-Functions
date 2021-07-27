@@ -132,22 +132,22 @@ void CodeMenu()
 	vector<Line*> ShieldColorLines;
 	ShieldColorLines.push_back(new Comment("Customize your Shield Color settings"));
 	ShieldColorLines.push_back(new Comment(""));
-	ShieldColorLines.push_back(new Integer("P1 1st Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
-	ShieldColorLines.push_back(new Integer("P1 1st Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_1));
-	ShieldColorLines.push_back(new Integer("P1 1st Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_1));
-	ShieldColorLines.push_back(new Integer("P1 1st Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_1));
-	ShieldColorLines.push_back(new Integer("P1 2nd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_2));
-	ShieldColorLines.push_back(new Integer("P1 2nd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_2));
-	ShieldColorLines.push_back(new Integer("P1 2nd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_2));
-	ShieldColorLines.push_back(new Integer("P1 2nd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_2));
-	ShieldColorLines.push_back(new Integer("P1 3rd Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_3));
-	ShieldColorLines.push_back(new Integer("P1 3rd Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_3));
-	ShieldColorLines.push_back(new Integer("P1 3rd Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_3));
-	ShieldColorLines.push_back(new Integer("P1 3rd Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_3));
-	ShieldColorLines.push_back(new Integer("P1 4th Shield Red", 0, 0xFF, 0, 1, SHIELD_RED_4));
-	ShieldColorLines.push_back(new Integer("P1 4th Shield Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
-	ShieldColorLines.push_back(new Integer("P1 4th Shield Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
-	ShieldColorLines.push_back(new Integer("P1 4th Shield Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));
+	ShieldColorLines.push_back(new Integer("Outer Circle Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
+	ShieldColorLines.push_back(new Integer("Outer Circle Green", 0, 0xFF, 0, 1, SHIELD_GREEN_1));
+	ShieldColorLines.push_back(new Integer("Outer Circle Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_1));
+	ShieldColorLines.push_back(new Integer("Outer Circle Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_1));
+	ShieldColorLines.push_back(new Integer("Outer Glow Red", 0, 0xFF, 0, 1, SHIELD_RED_2));
+	ShieldColorLines.push_back(new Integer("Outer Glow Green", 0, 0xFF, 0, 1, SHIELD_GREEN_2));
+	ShieldColorLines.push_back(new Integer("Outer Glow Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_2));
+	ShieldColorLines.push_back(new Integer("Outer Glow Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_2));
+	ShieldColorLines.push_back(new Integer("Main Color Accent Red", 0, 0xFF, 0, 1, SHIELD_RED_3));
+	ShieldColorLines.push_back(new Integer("Main Color Accent Green", 0, 0xFF, 0, 1, SHIELD_GREEN_3));
+	ShieldColorLines.push_back(new Integer("Main Color Accent Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_3));
+	ShieldColorLines.push_back(new Integer("Main Color Accent Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_3));
+	ShieldColorLines.push_back(new Integer("Main Shield Color Red", 0, 0xFF, 0, 1, SHIELD_RED_4));
+	ShieldColorLines.push_back(new Integer("Main Shield Color Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
+	ShieldColorLines.push_back(new Integer("Main Shield Color Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
+	ShieldColorLines.push_back(new Integer("Main Shield Color Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));
 	Page ShieldColorCodes("Shield Color Settings", ShieldColorLines);
 
 	//player pages
@@ -183,6 +183,7 @@ void CodeMenu()
 	P2Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
 	P2Lines.push_back(new Comment(""));
 	P2Lines.push_back(new Toggle("Infinite Shield", false, INFINITE_SHIELDS_P2_INDEX));
+	//P2Lines.push_back(&ShieldColorCodes.CalledFromLine); crashes with crash log
 	P2Lines.push_back(new Comment(""));
 	P2Lines.push_back(new Selection("P2 Character Select", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P2_INDEX));
 	P2Lines.push_back(new Comment(""));
@@ -203,6 +204,7 @@ void CodeMenu()
 	P3Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
 	P3Lines.push_back(new Comment(""));
 	P3Lines.push_back(new Toggle("Infinite Shield", false, INFINITE_SHIELDS_P3_INDEX));
+	//P3Lines.push_back(&ShieldColorCodes.CalledFromLine); crashes with black screen
 	P3Lines.push_back(new Comment(""));
 	P3Lines.push_back(new Selection("P3 Character Select", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P3_INDEX));
 	//P3Lines.push_back(new Selection("P3 Identity Crisis", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P3_INDEX));
@@ -224,6 +226,7 @@ void CodeMenu()
 	P4Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
 	P4Lines.push_back(new Comment(""));
 	P4Lines.push_back(new Toggle("Infinite Shield", false, INFINITE_SHIELDS_P4_INDEX));
+	//P4Lines.push_back(&ShieldColorCodes.CalledFromLine); it doesn't crash
 	P4Lines.push_back(new Comment(""));
 	P4Lines.push_back(new Selection("P4 Character Select", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P4_INDEX));
 	//P4Lines.push_back(new Selection("P4 Identity Crisis", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P4_INDEX));
@@ -265,46 +268,55 @@ void CodeMenu()
 	DebugLines.push_back(new Toggle("Camera Lock", false, CAMERA_LOCK_INDEX));
 	Page DebugMode("Debug Mode Settings", DebugLines);
 
+	vector<Line*> OnHitLines;
+	OnHitLines.push_back(new Comment("Modify core game mechanics"));
+	OnHitLines.push_back(new Comment(""));
+	OnHitLines.push_back(new Floating("Hitstun Multiplier", 0, 999, 0.4, .01, HITSTUN_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B87AA8, HITSTUN_MULTIPLIER_INDEX);
+	OnHitLines.push_back(new Floating("Hitlag Multiplier", 0, 999, 1. / 3., .02, HITLAG_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B87AEC, HITLAG_MULTIPLIER_INDEX);
+	OnHitLines.push_back(new Floating("Hitlag Maximum", 0, 999, 30, 1, HITLAG_MAXIMUM_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B87AE8, HITLAG_MAXIMUM_INDEX);
+	OnHitLines.push_back(new Floating("Electric Hitlag Multiplier", 0, 999, 1.5, .1, ELECTRIC_HITLAG_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B87B10, ELECTRIC_HITLAG_MULTIPLIER_INDEX);
+	OnHitLines.push_back(new Floating("SDI Distance", -999, 999, 6, .5, SDI_DISTANCE_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
+	OnHitLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
+	OnHitLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
+	OnHitLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, (2. / 3.), (1. / 12.), CROUCH_KNOCKBACK_INDEX, "%.2fx"));
+	constantOverrides.emplace_back(0x80B88348, CROUCH_KNOCKBACK_INDEX);
+	Page OnHitCodes("On-hit Behavior", OnHitLines);
+
+	vector<Line*> ShieldMechanicLines;
+	ShieldMechanicLines.push_back(new Comment("Shield Mechanics"));
+	ShieldMechanicLines.push_back(new Comment(""));
+	ShieldMechanicLines.push_back(new Floating("Minimum Shield Size Scale", -999, 999, 0.15, .02, MINIMUM_SHIELD_SIZE_SCALING_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88444, MINIMUM_SHIELD_SIZE_SCALING_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Maximum Sheild Size Multiplier", -999, 999, 1, .05, SHIELD_SIZE_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88478, SHIELD_SIZE_MULTIPLIER_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Shield Decay Rate", -1, 2, 0.280000001192, .04, SHIELD_DECAY_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88450, SHIELD_DECAY_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Shield Regen Rate", 0, 1, 0.07, .01, SHIELD_REGEN_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88454, SHIELD_REGEN_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Base Shield Damage", -999, 999, 0, 1, SHIELD_BASE_DAMAGE_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88460, SHIELD_BASE_DAMAGE_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Shield Damage Multiplier", -999, 999, 1, .02, SHIELD_DAMAGE_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Shield Tilt Multiplier", -999, 999, 0.5, .05, SHIELD_TILT_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88484, SHIELD_TILT_MULTIPLIER_INDEX);
+	ShieldMechanicLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
+	Page ShieldMechanicCodes("Shield Mechanics", ShieldMechanicLines);
+
 	//value setting
 	vector<Line*> ConstantsLines;
-	ConstantsLines.push_back(new Comment("Modify core game mechanics"));
+	ConstantsLines.push_back(new Comment("Gameplay Modifiers"));
 	ConstantsLines.push_back(new Comment(""));
-	ConstantsLines.push_back(new Comment("On-hit behavior"));
-	ConstantsLines.push_back(new Floating("Hitstun Multiplier", 0, 999, 0.4, .01, HITSTUN_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B87AA8, HITSTUN_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Hitlag Multiplier", 0, 999, 1. / 3., .02, HITLAG_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B87AEC, HITLAG_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Hitlag Maximum", 0, 999, 30, 1, HITLAG_MAXIMUM_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B87AE8, HITLAG_MAXIMUM_INDEX);
-	ConstantsLines.push_back(new Floating("Electric Hitlag Multiplier", 0, 999, 1.5, .1, ELECTRIC_HITLAG_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B87B10, ELECTRIC_HITLAG_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("SDI Distance", -999, 999, 6, .5, SDI_DISTANCE_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
-	ConstantsLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
-	ConstantsLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, (2. / 3.), (1. / 12.), CROUCH_KNOCKBACK_INDEX, "%.2fx"));
-	constantOverrides.emplace_back(0x80B88348, CROUCH_KNOCKBACK_INDEX);
-
-	ConstantsLines.push_back(new Comment("Shield mechanics"));
-	ConstantsLines.push_back(new Floating("Minimum Shield Size Scale", -999, 999, 0.15, .02, MINIMUM_SHIELD_SIZE_SCALING_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88444, MINIMUM_SHIELD_SIZE_SCALING_INDEX);
-	ConstantsLines.push_back(new Floating("Maximum Sheild Size Multiplier", -999, 999, 1, .05, SHIELD_SIZE_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88478, SHIELD_SIZE_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Shield Decay Rate", -1, 2, 0.280000001192, .04, SHIELD_DECAY_INDEX, "%.2f"));
-	constantOverrides.emplace_back(0x80B88450, SHIELD_DECAY_INDEX);
-	ConstantsLines.push_back(new Floating("Shield Regen Rate", 0, 1, 0.07, .01, SHIELD_REGEN_INDEX, "%.2f"));
-	constantOverrides.emplace_back(0x80B88454, SHIELD_REGEN_INDEX);
-	ConstantsLines.push_back(new Floating("Base Shield Damage", -999, 999, 0, 1, SHIELD_BASE_DAMAGE_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88460, SHIELD_BASE_DAMAGE_INDEX);
-	ConstantsLines.push_back(new Floating("Shield Damage Multiplier", -999, 999, 1, .02, SHIELD_DAMAGE_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Shield Tilt Multiplier", -999, 999, 0.5, .05, SHIELD_TILT_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88484, SHIELD_TILT_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
-
-	ConstantsLines.push_back(new Comment("Other"));
+	ConstantsLines.push_back(&OnHitCodes.CalledFromLine);
+	ConstantsLines.push_back(new Comment(""));
+	ConstantsLines.push_back(&ShieldMechanicCodes.CalledFromLine);
+	ConstantsLines.push_back(new Comment(""));
 	ConstantsLines.push_back(new Toggle("Universal Walljumps", false, ALL_CHARS_WALLJUMP_INDEX));
 	ConstantsLines.push_back(new Floating("Walljump Horizontal Multiplier", -999, 999, 0.9, .05, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88420, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX);
