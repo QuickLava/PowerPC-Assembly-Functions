@@ -73,6 +73,7 @@ int SPEED_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 int BALLOON_STOCK_INDEX = -1;
 int ALL_CHARS_WALLJUMP_INDEX = -1;
+int STAGELIST_INDEX = -1;
 
 //constant overrides
 vector<ConstantPair> constantOverrides;
@@ -385,6 +386,7 @@ void CodeMenu()
 	//	MainLines.push_back(new Selection("Endless Friendlies", { "OFF", "Same Stage", "Random Stage", "Round Robin" }, 0, INFINITE_FRIENDLIES_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Mode", { "OFF", "All Stay", "Winner Stays", "Loser Stays", "Rotation"}, 0, ENDLESS_FRIENDLIES_MODE_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Stage Selection", { "Random", "Same" }, 0, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "Default", "Singles (WI)", "Singles (PMBR)", "Doubles (WI)", "Doubles (PMBR)" }, 0, STAGELIST_INDEX));
 	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
@@ -395,10 +397,9 @@ void CodeMenu()
 #endif
 	MainLines.push_back(new Toggle("Save Previous Replay", false, SAVE_REPLAY_ANYWHERE_INDEX));
 	MainLines.push_back(new Comment(""));
-	MainLines.push_back(new Selection("Tag-Based Costumes", { "ON", "ON + Teams", "OFF" }, 0, TAG_COSTUME_TOGGLE_INDEX));
 	MainLines.push_back(&PlayerCodes.CalledFromLine);
 	MainLines.push_back(&SpecialModePage.CalledFromLine);
-
+	MainLines.push_back(new Selection("Tag-Based Costumes", { "ON", "ON + Teams", "OFF" }, 0, TAG_COSTUME_TOGGLE_INDEX));
 	MainLines.push_back(new Selection("Code Menu Activation", { "Default", "PM 3.6", "OFF" }, 0, CODE_MENU_ACTIVATION_SETTING_INDEX));
 
 	
@@ -949,6 +950,9 @@ void CreateMenu(Page MainPage)
 
 	//Universal walljump
 	AddValueToByteArray(ALL_CHARS_WALLJUMP_INDEX, Header);
+
+	//Stagelist Looter
+	AddValueToByteArray(STAGELIST_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
