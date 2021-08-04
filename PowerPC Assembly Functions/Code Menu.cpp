@@ -942,7 +942,7 @@ void CreateMenu(Page MainPage)
 	//Scale Modifier
 	AddValueToByteArray(SCALE_INDEX, Header);
 
-	//Scale Modifier
+	//Speed Modifier
 	AddValueToByteArray(SPEED_INDEX, Header);
 	
 	//Balloon stocks
