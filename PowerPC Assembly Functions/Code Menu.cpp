@@ -70,10 +70,11 @@ int BUFFER_P3_INDEX = -1;
 int BUFFER_P4_INDEX = -1;
 int SCALE_INDEX = -1;
 int SPEED_INDEX = -1;
-int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 int BALLOON_STOCK_INDEX = -1;
 int ALL_CHARS_WALLJUMP_INDEX = -1;
 int STAGELIST_INDEX = -1;
+int ASL_STAGE_INDEX = -1;
+int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
 vector<ConstantPair> constantOverrides;
@@ -387,6 +388,7 @@ void CodeMenu()
 	MainLines.push_back(new Selection("Endless Friendlies Mode", { "OFF", "All Stay", "Winner Stays", "Loser Stays", "Rotation"}, 0, ENDLESS_FRIENDLIES_MODE_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Stage Selection", { "Random", "Same" }, 0, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX));
 	MainLines.push_back(new Selection("Button Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
+	MainLines.push_back(new Toggle("Alternate Stages", true, ASL_STAGE_INDEX));
 	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","ProjectM", "Project+" }, 0, STAGELIST_INDEX));
 	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
@@ -953,6 +955,9 @@ void CreateMenu(Page MainPage)
 
 	//Stagelist Looter
 	AddValueToByteArray(STAGELIST_INDEX, Header);
+
+	//ASL Stage
+	AddValueToByteArray(ASL_STAGE_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);

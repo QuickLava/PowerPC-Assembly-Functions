@@ -73,6 +73,7 @@ extern int SPEED_INDEX;
 extern int BALLOON_STOCK_INDEX;
 extern int ALL_CHARS_WALLJUMP_INDEX;
 extern int STAGELIST_INDEX;
+extern int ASL_STAGE_INDEX;
 
 struct ConstantPair {
 	int address;
@@ -236,7 +237,9 @@ static const int BALLOON_STOCK_LOC = SPEED_LOC + 4; //4
 
 static const int STAGELIST_LOC = BALLOON_STOCK_LOC + 4; //4
 
-static const int ALL_CHARS_WALLJUMP_LOC = STAGELIST_LOC + 4; //4
+static const int ASL_STAGE_LOC = STAGELIST_LOC + 4; //4
+
+static const int ALL_CHARS_WALLJUMP_LOC = ASL_STAGE_LOC + 4; //4
 
 //static const int RANDOM_1_TO_1_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //4
 
