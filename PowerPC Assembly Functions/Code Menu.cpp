@@ -73,7 +73,8 @@ int SPEED_INDEX = -1;
 int BALLOON_STOCK_INDEX = -1;
 int ALL_CHARS_WALLJUMP_INDEX = -1;
 int STAGELIST_INDEX = -1;
-int ASL_STAGE_INDEX = -1;
+int ASL_STAGE_INDEX = -1; //new T+ code!
+int SALTY_REROLL_INDEX = -1; //new T+ code!
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -308,7 +309,8 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
 	ShieldMechanicLines.push_back(new Floating("Shield Tilt Multiplier", -999, 999, 0.5, .05, SHIELD_TILT_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88484, SHIELD_TILT_MULTIPLIER_INDEX);
-	ShieldMechanicLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
+	//ShieldMechanicLines.push_back(new Floating("Attacker Shield Pushback Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
+	//constantOverrides.emplace_back(___, SDI_DISTANCE_INDEX);
 	Page ShieldMechanicCodes("Shield Mechanics", ShieldMechanicLines);
 
 	//value setting
@@ -353,6 +355,7 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Selection("Big Head Mode", { "Off", "On", "Larger", "Largest", "Largerest" }, 0, BIG_HEAD_INDEX));
 	SpecialModeLines.push_back(new Toggle("War Mode", false, WAR_MODE_INDEX));
 	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
+	SpecialModeLines.push_back(new Toggle("Salty Reroll", false, SALTY_REROLL_INDEX));
 	SpecialModeLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Selection("Move Staling", { "ON (Versus)", "ON (All Modes)", "OFF" }, 0, STALING_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
@@ -360,7 +363,7 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
 	
 	
-	Page SpecialModePage("Special Modes", SpecialModeLines);
+	Page SpecialModePage("Special Settings", SpecialModeLines);
 	//main page
 	vector<Line*> MainLines;
 #if DOLPHIN_BUILD
@@ -390,7 +393,7 @@ void CodeMenu()
 	MainLines.push_back(new Selection("Button Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Alternate Stages", true, ASL_STAGE_INDEX));
 	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","ProjectM", "Project+" }, 0, STAGELIST_INDEX));
-	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
+	MainLines.push_back(new Selection("Random 1 for 1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 #if DOLPHIN_BUILD
 	MainLines.push_back(new Toggle("Autosave Replays", true, AUTO_SAVE_REPLAY_INDEX));
@@ -958,6 +961,9 @@ void CreateMenu(Page MainPage)
 
 	//ASL Stage
 	AddValueToByteArray(ASL_STAGE_INDEX, Header);
+
+	//Salty Reroll
+	AddValueToByteArray(SALTY_REROLL_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
