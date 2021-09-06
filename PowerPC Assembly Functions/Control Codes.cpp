@@ -867,8 +867,8 @@ void InfiniteFriendlies(int reg1, int reg2, int reg3, int reg4, int reg5, int re
 		SetRegister(reg1, 0);
 		STW(reg1, reg2, 0); //clear flag
 
-		//LoadWordToReg(reg1, RANDOM_1_TO_1_INDEX + Line::VALUE);
-		//If(reg1, NOT_EQUAL_I, 1); {
+		LoadWordToReg(reg1, RANDOM_1_TO_1_INDEX + Line::VALUE);
+		If(reg1, NOT_EQUAL_I, 1); {
 
 			LoadWordToReg(reg1, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX + Line::VALUE);
 			If(reg1, EQUAL_I, 0); {
@@ -897,7 +897,7 @@ void InfiniteFriendlies(int reg1, int reg2, int reg3, int reg4, int reg5, int re
 			ADDI(5, reg2, 0x5C);
 			SetRegister(6, 0);
 			CallBrawlFunc(0x8010f960); //stGetStageParameter
-		//} EndIf();
+		} EndIf();
 	}EndIf();
 }
 

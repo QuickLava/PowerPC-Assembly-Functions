@@ -25,7 +25,7 @@ int INFINITE_SHIELDS_P4_INDEX = -1;
 int CAMERA_LOCK_INDEX = -1;
 int ENDLESS_FRIENDLIES_MODE_INDEX = -1;
 int ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX = -1;
-int RANDOM_1_TO_1_INDEX = -1;
+int RANDOM_1_TO_1_INDEX = -1; //new T+ code!
 int AUTO_SAVE_REPLAY_INDEX = -1;
 int SAVE_STATES_INDEX = -1;
 int SAVE_REPLAY_ANYWHERE_INDEX = -1;
@@ -965,6 +965,9 @@ void CreateMenu(Page MainPage)
 	//Salty Reroll
 	AddValueToByteArray(SALTY_REROLL_INDEX, Header);
 
+	//Random 1 to 1
+	AddValueToByteArray(RANDOM_1_TO_1_INDEX, Header);
+
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
 	DSB[0x4 / 4] = 0xFFFFFFFF;
@@ -1413,10 +1416,10 @@ void ControlCodeMenu()
 
 	ApplyMenuSetting(CAMERA_LOCK_INDEX, 0x80583FF8 + 3, Reg1, Reg2, 1);
 
-	/*if (RANDOM_1_TO_1_INDEX != -1) {
+	if (RANDOM_1_TO_1_INDEX != -1) {
 		ApplyMenuSetting(RANDOM_1_TO_1_INDEX, RANDOM_1_TO_1_CPP_FLAG_LOC, Reg1, Reg2, 1);
 		printf("1 to 1 location %0X\n", RANDOM_1_TO_1_CPP_FLAG_LOC);
-	}*/
+	}
 
 	Label(SkipDebugNegation);
 
