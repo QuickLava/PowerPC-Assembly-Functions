@@ -75,6 +75,7 @@ extern int ALL_CHARS_WALLJUMP_INDEX;
 extern int STAGELIST_INDEX;
 extern int ASL_STAGE_INDEX;
 extern int SALTY_REROLL_INDEX;
+extern int RANDOM_TEAMS_INDEX;
 
 struct ConstantPair {
 	int address;
@@ -244,7 +245,9 @@ static const int ALL_CHARS_WALLJUMP_LOC = ASL_STAGE_LOC + 4; //4
 
 static const int SALTY_REROLL_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //4
 
-static const int RANDOM_1_TO_1_LOC = SALTY_REROLL_LOC + 4; //4
+static const int RANDOM_TEAMS_LOC = SALTY_REROLL_LOC + 4; //4
+
+static const int RANDOM_1_TO_1_LOC = RANDOM_TEAMS_LOC + 4; //4
 
 static const int DRAW_SETTINGS_BUFFER_LOC = RANDOM_1_TO_1_LOC + 4; //0x200
 

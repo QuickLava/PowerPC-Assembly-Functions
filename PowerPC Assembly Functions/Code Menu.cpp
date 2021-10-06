@@ -75,6 +75,7 @@ int ALL_CHARS_WALLJUMP_INDEX = -1;
 int STAGELIST_INDEX = -1;
 int ASL_STAGE_INDEX = -1; //new T+ code!
 int SALTY_REROLL_INDEX = -1; //new T+ code!
+int RANDOM_TEAMS_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -377,7 +378,7 @@ void CodeMenu()
 	MainLines.push_back(new Comment("Legacy TE 2.5 Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #endif
 	MainLines.push_back(new Comment("Green = Comments | Blue = Changed"));
-	MainLines.push_back(new Comment("A = Enter Submenu | B = Back/Exit"));
+	//MainLines.push_back(new Comment("A = Enter Submenu | B = Back/Exit"));
 	MainLines.push_back(new Comment("X = Reset Selection | Y = Reset Page"));
 	MainLines.push_back(new Comment("Hold Z = Scroll Faster"));
 	MainLines.push_back(new Comment(""));
@@ -392,9 +393,10 @@ void CodeMenu()
 	MainLines.push_back(new Selection("Endless Friendlies Stage Selection", { "Random", "Same" }, 0, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX));
 	MainLines.push_back(new Selection("Button Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Alternate Stages", true, ASL_STAGE_INDEX));
-	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","ProjectM", "Project+" }, 0, STAGELIST_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","By Series", "ProjectM", "Project+" }, 0, STAGELIST_INDEX));
 	MainLines.push_back(new Selection("Random 1 for 1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
+	MainLines.push_back(new Toggle("Randomized Teams", false, RANDOM_TEAMS_INDEX));
 #if DOLPHIN_BUILD
 	MainLines.push_back(new Toggle("Autosave Replays", true, AUTO_SAVE_REPLAY_INDEX));
 #else
@@ -967,6 +969,9 @@ void CreateMenu(Page MainPage)
 
 	//Random 1 to 1
 	AddValueToByteArray(RANDOM_1_TO_1_INDEX, Header);
+
+	//Random Teams
+	AddValueToByteArray(RANDOM_TEAMS_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
