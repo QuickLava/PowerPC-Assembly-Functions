@@ -34,7 +34,7 @@ typedef unsigned char u8;
 const vector<float> DEFAULT_CAMERA_MATRIX = { 1,0,0,0, 0,1,0,0, 0,0,1,-64 };
 
 #if BUILD_TYPE == PROJECT_PLUS
-const string MAIN_FOLDER = "Project+";
+const string MAIN_FOLDER = "Tourney+";
 #else
 const string MAIN_FOLDER = "LegacyTE";
 #endif
