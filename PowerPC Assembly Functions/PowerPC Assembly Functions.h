@@ -150,6 +150,7 @@ const int REPLACE_NAME_TIME_ADDRESS = REPLACE_NAME_OLD_TIME_LOC + 4;
 #define GCC_SETTINGS_TAG_OFFSET 0x14
 #define TAG_TIME_OFFSET 0x10
 #define MENU_FIRST_CREATION_TIME_LOC 0x90172e30
+#define STAGE_LOAD_FLAG_LOC 0x8053F003
 //state=0, pos=1, size=2, buttonPos=3, buttonCancel=4-5, newSize=6, newPos=7, reopenFlag=8, replaceTimeFlag=9, openFlag=10
 const int MENU_STATE_INFO_OFFSET = 0x60;
 const int MENU_SIZE_OFFSET = 0x6C;
@@ -270,6 +271,7 @@ void CodeStart(string FilePath);
 void CodeEnd();
 
 void MakeGCT(string TextFilePath, string OldGCTFilePath, string NewGCTFilePath);
+bool MakeASM(string TextFilePath, string OutputAsmPath);
 
 int GetHexFromFloat(float Value);
 int GetShiftNum(int endPos);
@@ -363,12 +365,12 @@ void ClampStick(int FPXValReg, int FPYValReg);
 void ConvertIntStickValsToFloating(int StickXReg, int StickYReg, int FPXResultReg, int FPYResultReg, int FPTempReg);
 void ConvertFloatingRegToInt(int FPReg, int ResultReg);
 void ConvertFloatingRegToInt(int FPReg, int ResultReg, int TempFPReg);
-void AddValueToByteArray(u32 value, vector<u8> &Array);
-void AddValueToByteArray(u16 value, vector<u8> &Array);
-void AddValueToByteArray(u8 value, vector<u8> &Array);
-void AddValueToByteArray(int value, vector<u8> &Array);
-void AddValueToByteArray(short value, vector<u8> &Array);
-void AddValueToByteArray(char value, vector<u8> &Array);
+void AddValueToByteArray(u32 value, vector<u8>& Array);
+void AddValueToByteArray(u16 value, vector<u8>& Array);
+void AddValueToByteArray(u8 value, vector<u8>& Array);
+void AddValueToByteArray(int value, vector<u8>& Array);
+void AddValueToByteArray(short value, vector<u8>& Array);
+void AddValueToByteArray(char value, vector<u8>& Array);
 void DrawPrimitive(int type, vector<float> Positions, vector<int> Colors, int VTXAttrFrmt);
 void DrawPrimitive(int type, vector<float> Positions, int Color, int VTXAttrFrmt);
 void LoadVal(int AddressReg, int size, int offset = 0, int ResultReg = 3);
@@ -506,7 +508,7 @@ void STH(int SourceReg, int AddressReg, int Immediate);
 void STHU(int SourceReg, int AddressReg, int Immediate);
 void STHUX(int SourceReg, int AddressReg1, int AddressReg2);
 void STHX(int SourceReg, int AddressReg1, int AddressReg2);
-void STMW(int StartReg, int AddressReg,  int Immediate);
+void STMW(int StartReg, int AddressReg, int Immediate);
 void STW(int SourceReg, int AddressReg, int Immediate);
 void STWU(int SourceReg, int AddressReg, int Immediate);
 void STWUX(int SourceReg, int AddressReg1, int AddressReg2);

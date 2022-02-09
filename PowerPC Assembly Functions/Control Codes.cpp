@@ -113,7 +113,7 @@ void setRotationQueuePlayers() {
 	int reg2 = 30;
 	int reg3 = 29;
 	int reg4 = 28;
-	
+
 	int portReg = 15;
 	int portInfoReg = 14;
 
@@ -229,6 +229,7 @@ void StartMatch()
 	SetupCharacterBuffer();
 
 	if (ENDLESS_FRIENDLIES_MODE_INDEX != -1) {
+		
 		InfiniteFriendlies(reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9);
 	}
 
@@ -442,6 +443,7 @@ void EndMatch()
 			int Skip = GetNextLabel();
 			LoadWordToReg(reg1, ENDLESS_FRIENDLIES_MODE_INDEX + Line::VALUE);
 			If(reg1, GREATER_I, 0); {
+
 				LWZ(reg1, 3, 0x24);
 				LWZ(reg1, reg1, 0x8C);
 				If(reg1, EQUAL_I, 0x13); {
@@ -456,6 +458,11 @@ void EndMatch()
 				SetRegister(reg1, 1);
 				SetRegister(reg2, INFINITE_FRIENDLIES_FLAG_LOC);
 				STW(reg1, reg2, 0);
+
+				// TODO: Check salty runback
+				SetRegister(reg1, 0x21);
+				SetRegister(reg2, STAGE_LOAD_FLAG_LOC);
+				STB(reg1, reg2, 0); // write ! to P+'s stage system to signify load stage flag
 
 				SetRegister(NextSceneReg, 1);
 			}EndIf();
@@ -535,7 +542,7 @@ void EndMatch()
 		}EndIf();
 		//can't trust registers after this
 	}
-	
+
 
 	RestoreRegisters();
 	ASMEnd(0x7c7f1b78); //mr r31, r3
@@ -823,7 +830,7 @@ void DeleteCharacterBuffer()
 void FindCharacterBuffer(int TargetReg, int ResultReg)
 {
 	SetRegister(ResultReg, 1);
-	
+
 	LoadWordToReg(3, MAIN_BUFFER_PTR);
 	RLWINM(4, 3, 16, 16, 31);
 	If(4, EQUAL_I_L, 0xCCCC); {
@@ -867,8 +874,8 @@ void InfiniteFriendlies(int reg1, int reg2, int reg3, int reg4, int reg5, int re
 		SetRegister(reg1, 0);
 		STW(reg1, reg2, 0); //clear flag
 
-		LoadWordToReg(reg1, RANDOM_1_TO_1_INDEX + Line::VALUE);
-		If(reg1, NOT_EQUAL_I, 1); {
+		//LoadWordToReg(reg1, RANDOM_1_TO_1_INDEX + Line::VALUE);
+		//If(reg1, NOT_EQUAL_I, 1); {
 
 			LoadWordToReg(reg1, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX + Line::VALUE);
 			If(reg1, EQUAL_I, 0); {
@@ -897,7 +904,7 @@ void InfiniteFriendlies(int reg1, int reg2, int reg3, int reg4, int reg5, int re
 			ADDI(5, reg2, 0x5C);
 			SetRegister(6, 0);
 			CallBrawlFunc(0x8010f960); //stGetStageParameter
-		} EndIf();
+		//} EndIf();
 	}EndIf();
 }
 
@@ -936,7 +943,7 @@ void AddLegalStagesToArray(int StageListReg, int LegalStageHighMaskReg, int Lega
 			RLWNM(reg4, 3, reg3, 0, 31);
 			AND(reg4, reg4, LegalStageLowMaskReg);
 		}EndIf();
-		
+
 		If(reg4, NOT_EQUAL_I, 0); {
 			If(reg3, NOT_EQUAL_I, 0x14); {
 				If(reg3, NOT_EQUAL_I, 0xE); {
@@ -959,8 +966,54 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	ADDI(reg2, reg2, 2064);
 	SetRegister(reg3, STRING_BUFFER);
 	SetRegister(reg4, 0);
-	LWZ(reg8, reg2, 0x24);
-	LWZ(reg9, reg2, 0x20);
+	
+	// Get random based on stagelist setting
+	int stagelistReg = 12;
+
+	unsigned int StagelistId_Default = 0;
+	unsigned int StagelistId_PMBR = 1;
+	unsigned int StagelistId_Canada = 2;
+	unsigned int StagelistId_Spain = 3;
+	unsigned int StagelistId_Australia = 4;
+	unsigned int StagelistId_PPlus = 7;
+
+	unsigned int RandomStageSelect01_PMBR = 0x00021000; unsigned int RandomStageSelect23_PMBR = 0x15200017;
+	unsigned int RandomStageSelect01_Canada = 0x00021000; unsigned int RandomStageSelect23_Canada = 0x15200407;
+	unsigned int RandomStageSelect01_Spain = 0x00020000; unsigned int RandomStageSelect23_Spain = 0x15200407;
+	unsigned int RandomStageSelect01_Australia = 0x00021000; unsigned int RandomStageSelect23_Australia = 0x54640407;
+	unsigned int RandomStageSelect01_PPlus = 0x00021000; unsigned int RandomStageSelect23_PPlus = 0x55640417;
+
+	LoadWordToReg(reg5, STAGELIST_INDEX + Line::VALUE);
+	If(reg5, EQUAL_I, StagelistId_PMBR); {
+		SetRegister(reg8, RandomStageSelect23_PMBR);
+		SetRegister(reg9, RandomStageSelect01_PMBR);
+	} Else(); If(reg5, EQUAL_I, StagelistId_Canada); {
+		SetRegister(reg8, RandomStageSelect23_Canada);
+		SetRegister(reg9, RandomStageSelect01_Canada);
+	} Else(); If(reg5, EQUAL_I, StagelistId_Spain); {
+		SetRegister(reg8, RandomStageSelect23_Spain);
+		SetRegister(reg9, RandomStageSelect01_Spain);
+	} Else(); If(reg5, EQUAL_I, StagelistId_Australia); {
+		SetRegister(reg8, RandomStageSelect23_Australia);
+		SetRegister(reg9, RandomStageSelect01_Australia);
+	} Else(); If(reg5, EQUAL_I, StagelistId_PPlus); {
+		SetRegister(reg8, RandomStageSelect23_PPlus);
+		SetRegister(reg9, RandomStageSelect01_PPlus);
+	} Else(); {
+		LWZ(reg8, reg2, 0x24);
+		LWZ(reg9, reg2, 0x20);
+	} EndIf(); EndIf(); EndIf(); EndIf(); EndIf();
+
+	// get and invert stage strike table
+	LoadWordToReg(reg5, 0x8053E574);
+	LoadWordToReg(reg6, 0x8053E570);
+	SetRegister(reg7, -1);
+	XOR(reg5, reg5, reg7);
+	XOR(reg6, reg6, reg7);
+
+	// and random stage switch table and stage strike table
+	AND(reg8, reg8, reg5);
+	AND(reg9, reg9, reg6);
 
 	LoadWordToReg(reg1, 0x80495D04);
 	AddLegalStagesToArray(reg1, reg9, reg8, reg3, reg4, reg5, reg6, reg7);

@@ -126,13 +126,13 @@ void CodeMenu()
 	//P2Lines.push_back(new Selection("P2 Identity Crisis", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P2_INDEX));
 	cout << "Debug Toggles:\n";
 	int toggleLocations[16];
-	for(int i = 0; i < 16; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		TestLines.push_back(new Integer(to_string(i), -10000, 10000, 0, 1, toggleLocations[i]));
 	}
 	Page TestPage("Testing flags", TestLines);
 #endif
-	
+
 	vector<Line*> ShieldColorLines;
 	ShieldColorLines.push_back(new Comment("Customize your Shield Color settings"));
 	ShieldColorLines.push_back(new Comment(""));
@@ -341,7 +341,7 @@ void CodeMenu()
 	DBZModeLines.push_back(new Floating("Horizontal Acceleration", -100, 100, 1, .01, DBZ_MODE_ACCEL_X_INDEX, "%.3f"));
 	DBZModeLines.push_back(new Floating("Vertical Acceleration", -100, 100, 1, .01, DBZ_MODE_ACCEL_Y_INDEX, "%.3f"));
 	Page DBZModePage("Flight Mode Settings", DBZModeLines);
-	
+
 	//Special Mode Settings
 	vector<Line*> SpecialModeLines;
 	SpecialModeLines.push_back(new Comment("Toggle for-fun modes"));
@@ -362,8 +362,8 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	
-	
+
+
 	Page SpecialModePage("Special Settings", SpecialModeLines);
 	//main page
 	vector<Line*> MainLines;
@@ -386,15 +386,15 @@ void CodeMenu()
 #if EON_DEBUG_BUILD
 	MainLines.push_back(&TestPage.CalledFromLine);
 #endif
-	
+
 	MainLines.push_back(&DebugMode.CalledFromLine);
 	//	MainLines.push_back(new Selection("Endless Friendlies", { "OFF", "Same Stage", "Random Stage", "Round Robin" }, 0, INFINITE_FRIENDLIES_INDEX));
-	MainLines.push_back(new Selection("Endless Friendlies Mode", { "OFF", "All Stay", "Winner Stays", "Loser Stays", "Rotation"}, 0, ENDLESS_FRIENDLIES_MODE_INDEX));
+	MainLines.push_back(new Selection("Endless Friendlies Mode", { "OFF", "All Stay", "Winner Stays", "Loser Stays", "Rotation" }, 0, ENDLESS_FRIENDLIES_MODE_INDEX));
 	MainLines.push_back(new Selection("Endless Friendlies Stage Selection", { "Random", "Same" }, 0, ENDLESS_FRIENDLIES_STAGE_SELECTION_INDEX));
+	MainLines.push_back(new Selection("Random 1 for 1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Selection("Button Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Alternate Stages", true, ASL_STAGE_INDEX));
-	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","By Series", "ProjectM", "Project+" }, 0, STAGELIST_INDEX));
-	MainLines.push_back(new Selection("Random 1 for 1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Spain", "Australia","By Series", "Alphabetical", "ProjectM", "Project+" }, 0, STAGELIST_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 	MainLines.push_back(new Toggle("Randomized Teams", false, RANDOM_TEAMS_INDEX));
 #if DOLPHIN_BUILD
@@ -409,18 +409,18 @@ void CodeMenu()
 	MainLines.push_back(new Selection("Tag-Based Costumes", { "ON", "ON + Teams", "OFF" }, 0, TAG_COSTUME_TOGGLE_INDEX));
 	MainLines.push_back(new Selection("Code Menu Activation", { "Default", "PM 3.6", "OFF" }, 0, CODE_MENU_ACTIVATION_SETTING_INDEX));
 
-	
+
 	//MainLines.push_back(new Print("%s", {&tets}));
 
 
 
 	Page Main("Main", MainLines);
-	
+
 
 	//Unclepunch fps code
 	vector<unsigned int> x = { 3254926684, 3, 2288895028, 946012161, 2557330484, 2283733000, 1610612736, 0, 3254926716, 6, 2288895029, 946012161, 2557330485, 738394172, 1098907672, 2288895028, 2959983670, 945815552, 2557330484, 2557330485, 2147549204, 0 };
 
-	for(auto a: x) {
+	for (auto a : x) {
 		WriteIntToFile(a);
 	}
 
@@ -444,13 +444,13 @@ void CodeMenu()
 	ActualCodes();
 
 #if EON_DEBUG_BUILD
-	for(auto TOGGLE_LOC: toggleLocations)
+	for (auto TOGGLE_LOC : toggleLocations)
 	{
 		printf("%0X\n", TOGGLE_LOC);
 	}
 	cout << endl;
 #endif
-	
+
 	//printf("%X", P1_TAG_STRING_INDEX);
 
 	//printf("%0Xu\n", KnucklesTemp + 8);
@@ -545,7 +545,7 @@ void printMenuSetters() {
 void stopAnouncer() {
 	ASMStart(0x809580b4);
 	//SaveRegisters();
-	
+
 	int reg1 = 4;
 
 	LoadWordToReg(reg1, ENDLESS_FRIENDLIES_MODE_INDEX + Line::VALUE);
@@ -573,7 +573,7 @@ void endlessFriendlies() {
 	int reg6 = 26;
 	int flagReg = 25;
 
-	
+
 	SetRegister(flagReg, -1); //Doesn't do anything unless changed
 
 	LoadWordToReg(reg1, ENDLESS_FRIENDLIES_MODE_INDEX + Line::VALUE);
@@ -618,7 +618,7 @@ void endlessFriendlies() {
 		ORI(reg3, reg3, 0x8); //set flag
 		STB(reg3, 3, 0x5D);
 	} EndIf();
-	
+
 
 	RestoreRegisters();
 	ASMEnd(0x8803005d); //lbz r0, 0x5D (r3)
@@ -638,15 +638,15 @@ void ActualCodes()
 		RemoveArticle();
 	}
 
-	if(!constantOverrides.empty()) {
+	if (!constantOverrides.empty()) {
 		constantOverride();
 	}
 
-	if(DBZ_MODE_INDEX != -1) {
+	if (DBZ_MODE_INDEX != -1) {
 		DBZMode();
 	}
 
-	if(ALT_STAGE_BEHAVIOR_INDEX != -1) {
+	if (ALT_STAGE_BEHAVIOR_INDEX != -1) {
 		//ASMStart(0x8094a168);
 #if BUILD_TYPE == PROJECT_PLUS
 		ASMStart(0x8010f990);
@@ -671,7 +671,7 @@ void ActualCodes()
 		} Else(); If(Reg1, EQUAL_I, 1); //random
 		{
 #if BUILD_TYPE == PROJECT_PLUS
-			vector<int> alts = { 0, BUTTON_A, BUTTON_L, BUTTON_R, BUTTON_Z, BUTTON_Y, BUTTON_START, BUTTON_X, BUTTON_DPAD, BUTTON_B};
+			vector<int> alts = { 0, BUTTON_A, BUTTON_L, BUTTON_R, BUTTON_Z, BUTTON_Y, BUTTON_START, BUTTON_X, BUTTON_DPAD, BUTTON_B };
 #else
 			vector<int> alts = { 0, BUTTON_L, BUTTON_Z, BUTTON_START };
 #endif
@@ -687,7 +687,7 @@ void ActualCodes()
 				SetRegister(Reg1, 0);
 				STW(Reg1, Reg2, 0);
 			} EndIf();
-			
+
 			LoadWordToReg(Reg3, RANDOM_ALTS_RNG);
 
 			//SetRegister(Reg2, 4);
@@ -743,7 +743,7 @@ void ActualCodes()
 
 	if (STALING_TOGGLE_INDEX != -1) {
 		ASMStart(0x808e00a4);
-		
+
 		LoadWordToReg(6, STALING_TOGGLE_INDEX + Line::VALUE);
 		If(6, EQUAL_I, 1); {
 			SetRegister(0, 8);
@@ -770,7 +770,7 @@ void CreateMenu(Page MainPage)
 	int EndOffset = MainPage.Size;
 	for (int i = 0; i < Pages.size(); i++) {
 		CurrentOffset += Page::NUM_WORD_ELEMS * 4;
-		for (Line* &x : Pages[i]->Lines) {
+		for (Line*& x : Pages[i]->Lines) {
 			if (x->Index != nullptr) {
 				*(x->Index) = CurrentOffset;
 			}
@@ -799,7 +799,7 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(START_OF_CODE_MENU, Header); //current page ptr
 	AddValueToByteArray(START_OF_CODE_MENU, Header); //main page ptr
 	//button combos
-	AddValueToByteArray(BUTTON_L | BUTTON_R | BUTTON_Y , Header); //salty runback
+	AddValueToByteArray(BUTTON_L | BUTTON_R | BUTTON_Y, Header); //salty runback
 	AddValueToByteArray(BUTTON_L | BUTTON_R | BUTTON_X, Header); //skip results
 	//line colors
 	AddValueToByteArray(WHITE, Header); //normal line color
@@ -820,7 +820,7 @@ void CreateMenu(Page MainPage)
 	//button mask
 	AddValueToByteArray(0, Header); //code menu mask
 	AddValueToByteArray(0, Header); //button activator mask
-	for(int i = 0; i < 8; i++) { AddValueToByteArray(0, Header); } //main mask
+	for (int i = 0; i < 8; i++) { AddValueToByteArray(0, Header); } //main mask
 	//old debug state
 	AddValueToByteArray(0, Header); //old debug state
 	AddValueToByteArray(0, Header); //camera lock state
@@ -877,9 +877,9 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(0x7C641850, Header);
 	AddValueToByteArray(0x4E800020, Header);
 	//replay buffers
-	for(int i = 0; i < 5; i++) { AddValueToByteArray(0, Header); } //nte buffer
-	for(int i = 0; i < 2; i++) { AddValueToByteArray(0, Header); } //section buffer
-	for(int i = 0; i < 12; i++) { AddValueToByteArray(0, Header); } //crypto buffer
+	for (int i = 0; i < 5; i++) { AddValueToByteArray(0, Header); } //nte buffer
+	for (int i = 0; i < 2; i++) { AddValueToByteArray(0, Header); } //section buffer
+	for (int i = 0; i < 12; i++) { AddValueToByteArray(0, Header); } //crypto buffer
 	//button conversion tables
 	Header.insert(Header.end(), CODE_MENU_WIIMOTE_CONVERSION_TABLE.begin(), CODE_MENU_WIIMOTE_CONVERSION_TABLE.end());
 	Header.insert(Header.end(), CODE_MENU_WIICHUCK_CONVERSION_TABLE.begin(), CODE_MENU_WIICHUCK_CONVERSION_TABLE.end());
@@ -894,7 +894,7 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(0, Header);
 	AddValueToByteArray(0, Header);
 	AddValueToByteArray(0, Header);
-	
+
 	//random alts
 	//rng
 	AddValueToByteArray(0, Header);
@@ -930,7 +930,7 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(ALC_P2_INDEX, Header);
 	AddValueToByteArray(ALC_P3_INDEX, Header);
 	AddValueToByteArray(ALC_P4_INDEX, Header);
-	
+
 	//Big Head Mode Index
 	AddValueToByteArray(BIG_HEAD_INDEX, Header);
 
@@ -951,7 +951,7 @@ void CreateMenu(Page MainPage)
 
 	//Speed Modifier
 	AddValueToByteArray(SPEED_INDEX, Header);
-	
+
 	//Balloon stocks
 	AddValueToByteArray(BALLOON_STOCK_INDEX, Header);
 
@@ -1005,12 +1005,12 @@ void constantOverride() {
 	int reg1 = 4;
 	int reg2 = 5;
 
-	for(auto& x : constantOverrides) {
+	for (auto& x : constantOverrides) {
 		LoadWordToReg(reg1, *x.index + Line::VALUE);
 		SetRegister(reg2, x.address);
 		STW(reg1, reg2, 0);
 	}
-	
+
 	// Universal walljumping - works, but match must be restarted. Attempted writing to 0x80FC15C0 and 0x80FC15D8, but got same result
 	LoadWordToReg(reg1, ALL_CHARS_WALLJUMP_INDEX + Line::VALUE);
 	SetRegister(reg2, 0x80FAA9A0); //walljump comparison
@@ -1023,7 +1023,7 @@ void constantOverride() {
 		SetRegister(reg1, 2);  // word 2 @ $80FAA9A0, normal walljump mechanics
 	} EndIf();
 	STW(reg1, reg2, 0);
-	
+
 
 	ASMEnd(0x2c000000); //cmpwi, r0, 0
 }
@@ -1133,7 +1133,7 @@ void ControlCodeMenu()
 		SetRegister(Reg4, SHOULD_DISPLAY_HUD_FLAG_LOC);
 		SetRegister(Reg1, 1);
 		STW(Reg1, Reg4, 0);
-		
+
 		//Remove HUD
 		SetRegister(3, 0x80672f40);
 		SetRegister(4, 8);
@@ -1154,8 +1154,8 @@ void ControlCodeMenu()
 			STW(Reg1, Reg4, 0);
 		} EndIf();
 	} EndIf();
-	
-	
+
+
 	LoadWordToReg(OpenFlagReg, Reg4, CODE_MENU_CONTROL_FLAG);
 
 	//GCC input
@@ -1182,7 +1182,7 @@ void ControlCodeMenu()
 				SetRegister(OpenFlagReg, CODE_MENU_TRIGGERED);
 			}EndIf();
 		}EndIf();
-		
+
 		LBA(Reg2, Reg1, GCC_CONTROL_STICK_X_START - PLAY_BUTTON_LOC_START);
 		ADD(ControlStickXReg, ControlStickXReg, Reg2);
 
@@ -1250,7 +1250,7 @@ void ControlCodeMenu()
 
 
 	LoadWordToReg(Reg3, Reg5, IS_DEBUG_PAUSED);
-	
+
 	If(OpenFlagReg, EQUAL_I, CODE_MENU_PRIMED); {
 		//check for A press
 		SetRegister(OpenFlagReg, CODE_MENU_CLOSED);
@@ -1321,7 +1321,7 @@ void ControlCodeMenu()
 		ExecuteAction(ActionReg);
 
 	}EndIf(); //run logic
-	
+
 	//button negate
 	SetRegister(Reg1, PLAY_BUTTON_LOC_START - BUTTON_PORT_OFFSET);
 	SetRegister(Reg2, MAIN_BUTTON_MASK_LOC - 4);
@@ -1421,10 +1421,10 @@ void ControlCodeMenu()
 
 	ApplyMenuSetting(CAMERA_LOCK_INDEX, 0x80583FF8 + 3, Reg1, Reg2, 1);
 
-	if (RANDOM_1_TO_1_INDEX != -1) {
-		ApplyMenuSetting(RANDOM_1_TO_1_INDEX, RANDOM_1_TO_1_CPP_FLAG_LOC, Reg1, Reg2, 1);
-		printf("1 to 1 location %0X\n", RANDOM_1_TO_1_CPP_FLAG_LOC);
-	}
+	//if (RANDOM_1_TO_1_INDEX != -1) {
+	//	ApplyMenuSetting(RANDOM_1_TO_1_INDEX, RANDOM_1_TO_1_CPP_FLAG_LOC, Reg1, Reg2, 1);
+	//	printf("1 to 1 location %0X\n", RANDOM_1_TO_1_CPP_FLAG_LOC);
+	//}
 
 	Label(SkipDebugNegation);
 
@@ -1519,7 +1519,7 @@ void ControlCodeMenu()
 									STFS(1, 3, 0x24);
 
 
-									
+
 									/*LWZ(3, CharacterBufferReg, CHR_BUFFER_HEAD_OF_FIGHTER_OFFSET);
 									CallBrawlFunc(0x8083ae24); //getOwner
 									//SetRegister(4, 1);
@@ -1546,7 +1546,7 @@ void ControlCodeMenu()
 									CallBrawlFunc(0x800e14a4); //updateDamageHP*/
 
 
-									
+
 								}EndIf(); EndIf();
 							}EndIf();
 						}EndIf();
@@ -1648,7 +1648,7 @@ void ControlCodeMenu()
 		{
 			SetRegister(Reg2, 0);
 			STW(Reg2, Reg3, 0);
-			
+
 			//reset
 			SetRegister(3, 0x80672f40);
 			SetRegister(4, 0);
@@ -1686,7 +1686,7 @@ void ControlCodeMenu()
 			} EndWhile();
 		} EndIf();
 	} EndIf();
-	
+
 
 	//can't trust register values after here
 	//need to change when save states are active again
@@ -1767,7 +1767,7 @@ void ExecuteAction(int ActionReg)
 	If(ActionReg, EQUAL_I, ENTER_SUB_MENU); //increment, if A is pressed
 	IncreaseValue(LineReg, PageReg, TypeReg, TempReg1, TempReg2, TempReg3, TempReg4, TempReg5);
 	EndIf(); //increment
-	
+
 	If(ActionReg, EQUAL_I, DECREMENT); //decrement
 	DecreaseValue(LineReg, PageReg, TypeReg, TempReg1, TempReg2, TempReg3, TempReg4, TempReg5);
 	EndIf(); //decrement
@@ -2152,10 +2152,10 @@ void printFPS() {
 
 		SetupPrintText(reg3);
 
-		SetRegs(3, { (int) 0x805B71F0, 0 });
+		SetRegs(3, { (int)0x805B71F0, 0 });
 		CallBrawlFunc(0x801f51dc);
 
-		
+
 		SetRegister(reg4, 0x805b6df8);
 		LFS(1, reg4, 0); //scale factor
 
@@ -2300,7 +2300,7 @@ void PrimeCodeMenu()
 			}EndIf();
 		}EndIf();
 	} EndIf();
-	
+
 
 	SetRegister(Reg2, ON_GROUP_RECORDS_FLAG_LOC);
 	SetRegister(Reg1, 0);
@@ -2496,7 +2496,7 @@ void PrintCodeMenuLine(int LinePtrReg, int SettingsPtrReg, int ColorArrayPtrReg,
 		CallBrawlFunc(0x803f89fc); //sprintf
 	} Else(); If(TempReg2, EQUAL_I, FLOATING_LINE); {
 		LFS(1, LinePtrReg, Line::VALUE);
-		SprintF(4, {},  { 1 }, -1);
+		SprintF(4, {}, { 1 }, -1);
 	} Else(); {
 		LWZ(5, LinePtrReg, Line::VALUE); //get setting
 
@@ -2550,7 +2550,7 @@ void SaveReplay()
 	WriteStringToMem("nand:/collect.vff\0"s, reg5);
 	SetRegs(3, { DOLPHIN_MOUNT_VF_LOC, 0, STRING_BUFFER });
 	CallBrawlFunc(0x80020f90); //mountVF
-	SetRegs(3, { 0, 607500 * 3});
+	SetRegs(3, { 0, 607500 * 3 });
 	CallBrawlFunc(0x801e1a80); //OSSleepTicks
 #endif
 
@@ -2564,7 +2564,7 @@ void SaveReplay()
 	SetRegister(3, 0);
 	STW(3, SectionBufferReg, 0);
 	STW(3, SectionBufferReg, 4);
-	vector<int> is = { 0x4e0341de, (int) 0xe6bbaa41, 0x6419b3ea, (int) 0xe8f53bd9 };
+	vector<int> is = { 0x4e0341de, (int)0xe6bbaa41, 0x6419b3ea, (int)0xe8f53bd9 };
 	//crypto buffer
 	vector<int> stupid = is;
 	WriteVectorToMem(stupid, CryptoBufferReg);
@@ -2596,7 +2596,7 @@ void SaveReplay()
 #if DOLPHIN_BUILD == false
 	CallBrawlFunc(0x8003d1cc); //run crypto
 #endif
-	
+
 	SetRegister(PathPtrReg, STRING_BUFFER + 0xA0);
 	//WriteStringToMem("/LegacyTE/rp/rp_%d%d.bin\0"s, PathPtrReg);
 	//SprintF(PathPtrReg, { HighTimeReg, LowTimeReg });

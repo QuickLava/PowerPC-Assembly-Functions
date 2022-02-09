@@ -81,7 +81,7 @@ struct ConstantPair {
 	int address;
 	int* index;
 
-	ConstantPair(int address, int &index) : address(address), index(&index) {}
+	ConstantPair(int address, int& index) : address(address), index(&index) {}
 };
 
 //constant overrides
@@ -245,13 +245,11 @@ static const int ALL_CHARS_WALLJUMP_LOC = ASL_STAGE_LOC + 4; //4
 
 static const int SALTY_REROLL_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //4
 
-static const int RANDOM_TEAMS_LOC = SALTY_REROLL_LOC + 4; //4
+static const int RANDOM_1_TO_1_LOC = SALTY_REROLL_LOC + 4; //4
 
-static const int RANDOM_1_TO_1_LOC = RANDOM_TEAMS_LOC + 4; //4
+static const int RANDOM_TEAMS_LOC = RANDOM_1_TO_1_LOC + 4; //4
 
-static const int DRAW_SETTINGS_BUFFER_LOC = RANDOM_1_TO_1_LOC + 4; //0x200
-
-
+static const int DRAW_SETTINGS_BUFFER_LOC = RANDOM_TEAMS_LOC + 4; //0x200
 
 static const int START_OF_CODE_MENU = DRAW_SETTINGS_BUFFER_LOC + 0x200;
 
@@ -390,7 +388,7 @@ public:
 	u32 Max;
 	u32 Min;
 	u32 Speed;
-	Page *SubMenuPtr;
+	Page* SubMenuPtr;
 	u16 SubMenuOffset;
 	int PageOffset;
 	u8 type;
@@ -431,7 +429,7 @@ class Comment : public Line
 {
 public:
 	Comment(string Text, int* Index = nullptr)
-	: Line(Text, COMMENT_LINE_TEXT_START, COMMENT_LINE, 0, COMMENT_LINE_COLOR_OFFSET, Index) {}
+		: Line(Text, COMMENT_LINE_TEXT_START, COMMENT_LINE, 0, COMMENT_LINE_COLOR_OFFSET, Index) {}
 
 	void WriteLineData()
 	{
@@ -459,8 +457,8 @@ public:
 			sprintf(OpHexBuffer, "%08X", x);
 			cout << Text << ": " << OpHexBuffer << endl;
 			x = _byteswap_ulong(x);
-			
-			MenuFile.write((const char*)& x, 4);
+
+			MenuFile.write((const char*)&x, 4);
 			//sprintf(OpHexBuffer, "%08X", x);
 			//cout << Text << ": " << OpHexBuffer << endl;
 			//MenuFile << OpHexBuffer;
@@ -474,8 +472,8 @@ private:
 class Selection : public Line
 {
 public:
-	Selection(string Text, vector<string> Options, vector<u16> Values, int Default, int &Index)
-	: Line(CreateSelectionString(Text + ":  %s", Options), SELECTION_LINE_OFFSETS_START + Options.size() * 4, SELECTION_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
+	Selection(string Text, vector<string> Options, vector<u16> Values, int Default, int& Index)
+		: Line(CreateSelectionString(Text + ":  %s", Options), SELECTION_LINE_OFFSETS_START + Options.size() * 4, SELECTION_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
 	{
 		if (Options.size() != Values.size()) {
 			cout << "Mismatched values" << endl;
@@ -494,13 +492,13 @@ public:
 		this->Max = Options.size() - 1;
 	}
 
-	Selection(string Text, vector<string> Options, int Default, int &Index)
+	Selection(string Text, vector<string> Options, int Default, int& Index)
 		: Selection(Text, Options, CreateVector(Options), Default, Index) {}
 
-	Selection(string Text, vector<string> Options, vector<u16> Values, string Default, int &Index)
+	Selection(string Text, vector<string> Options, vector<u16> Values, string Default, int& Index)
 		: Selection(Text, Options, Values, distance(Options.begin(), find(Options.begin(), Options.end(), Default)), Index) {}
 
-	Selection(string Text, vector<string> Options, string Default, int &Index)
+	Selection(string Text, vector<string> Options, string Default, int& Index)
 		: Selection(Text, Options, distance(Options.begin(), find(Options.begin(), Options.end(), Default)), Index) {}
 
 	string CreateSelectionString(string Text, vector<string> Options)
@@ -511,7 +509,7 @@ public:
 		return Text;
 	}
 
-	vector<u16> CreateVector(vector<string> x) 
+	vector<u16> CreateVector(vector<string> x)
 	{
 		vector<u16> Values;
 		for (u16 i = 0; i < x.size(); i++) {
@@ -531,8 +529,8 @@ public:
 class Toggle : public Selection
 {
 public:
-	Toggle(string Text, bool Default, int &Index)
-		: Selection(Text,  { "OFF", "ON" }, Default, Index) {}
+	Toggle(string Text, bool Default, int& Index)
+		: Selection(Text, { "OFF", "ON" }, Default, Index) {}
 };
 
 class SubMenu : public Line
@@ -541,7 +539,7 @@ public:
 	SubMenu() {}
 
 	SubMenu(string Text, Page* SubMenuPtr)
-	: Line(Text + " >", SUB_MENU_LINE_TEXT_START, SUB_MENU_LINE, 0, NORMAL_LINE_COLOR_OFFSET)
+		: Line(Text + " >", SUB_MENU_LINE_TEXT_START, SUB_MENU_LINE, 0, NORMAL_LINE_COLOR_OFFSET)
 	{
 		this->SubMenuPtr = SubMenuPtr;
 	}
@@ -550,8 +548,8 @@ public:
 class Integer : public Line
 {
 public:
-	Integer(string Text, int Min, int Max, int Default, int Speed, int &Index)
-	: Line(Text + ":  %d", NUMBER_LINE_TEXT_START, INTEGER_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
+	Integer(string Text, int Min, int Max, int Default, int Speed, int& Index)
+		: Line(Text + ":  %d", NUMBER_LINE_TEXT_START, INTEGER_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
 	{
 		this->Min = Min;
 		this->Max = Max;
@@ -565,8 +563,8 @@ public:
 class Floating : public Line
 {
 public:
-	Floating(string Text, float Min, float Max, float Default, float Speed, int &Index, string format = "%f")
-	: Line(Text + ":  " + format, NUMBER_LINE_TEXT_START, FLOATING_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
+	Floating(string Text, float Min, float Max, float Default, float Speed, int& Index, string format = "%f")
+		: Line(Text + ":  " + format, NUMBER_LINE_TEXT_START, FLOATING_LINE, 0, NORMAL_LINE_COLOR_OFFSET, &Index)
 	{
 		this->Min = GetHexFromFloat(Min);
 		this->Max = GetHexFromFloat(Max);
@@ -588,13 +586,13 @@ public:
 			x->PageOffset = Size;
 			Size += x->Size;
 		}
-		for(int i = 0; i < Lines.size(); i++) {
+		for (int i = 0; i < Lines.size(); i++) {
 			Lines[i]->lineNum = i;
 		}
 		//Lines.back()->Size = 0;
 		ConnectSelectableLines();
 	}
-	
+
 	void WritePage()
 	{
 		vector<u8> output;
@@ -620,7 +618,7 @@ public:
 				Lines[SelectableLines[i]]->UpOffset = Lines[SelectableLines[i - 1]]->PageOffset;
 				Lines[SelectableLines[i]]->DownOffset = Lines[SelectableLines[i + 1]]->PageOffset;
 			}
-		
+
 			CurrentLineOffset = Lines[SelectableLines[1]]->PageOffset;
 			Lines[SelectableLines[1]]->Color = HIGHLIGHTED_LINE_COLOR_OFFSET;
 		}
@@ -629,7 +627,7 @@ public:
 		}
 	}
 
-	void GetSelectableLines(vector<int> &SelectableLines)
+	void GetSelectableLines(vector<int>& SelectableLines)
 	{
 		for (int i = 0; i < Lines.size(); i++) {
 			if (Lines[i]->type != COMMENT_LINE && Lines[i]->type != PRINT_LINE) {

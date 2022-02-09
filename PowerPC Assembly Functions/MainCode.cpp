@@ -18,7 +18,6 @@
 //#include "FPS Display.h"
 using namespace std;
 
-bool MakeASM(string TextFilePath, string OutputAsmPath);
 bool MakeASM(string TextFilePath, string OutputAsmPath)
 {
 	string codeString;
