@@ -77,6 +77,7 @@ int ASL_STAGE_INDEX = -1; //new T+ code!
 int SALTY_REROLL_INDEX = -1; //new T+ code!
 int RANDOM_TEAMS_INDEX = -1;
 int HITFALLING_TOGGLE_INDEX = -1;
+int GRABS_TRADE_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -321,6 +322,8 @@ void CodeMenu()
 	ConstantsLines.push_back(new Comment(""));
 	ConstantsLines.push_back(&OnHitCodes.CalledFromLine);
 	ConstantsLines.push_back(new Selection("Move Staling", { "ON (Versus)", "ON (All Modes)", "OFF" }, 0, STALING_TOGGLE_INDEX));
+	ConstantsLines.push_back(new Selection("Grab Trade Behavior", { "Default", "Recoil", "Heart Swap" }, 0, GRABS_TRADE_INDEX));
+	ConstantsLines.push_back(new Toggle("Hitfalling", false, HITFALLING_TOGGLE_INDEX));
 	ConstantsLines.push_back(new Comment(""));
 	ConstantsLines.push_back(&ShieldMechanicCodes.CalledFromLine);
 	ConstantsLines.push_back(new Comment(""));
@@ -360,7 +363,6 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
 	SpecialModeLines.push_back(new Toggle("Salty Reroll", false, SALTY_REROLL_INDEX));
 	SpecialModeLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
-	SpecialModeLines.push_back(new Toggle("Hitfalling", false, HITFALLING_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
@@ -980,6 +982,9 @@ void CreateMenu(Page MainPage)
 
 	//Hitfalling toggle
 	AddValueToByteArray(HITFALLING_TOGGLE_INDEX, Header);
+
+	//Grabs Trade behavior toggle
+	AddValueToByteArray(GRABS_TRADE_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
