@@ -472,13 +472,19 @@ void EndMatch()
 
 		SetRegister(reg2, PLAY_BUTTON_LOC_START - BUTTON_PORT_OFFSET);
 		LoadHalfToReg(reg6, SALTY_RUNBACK_BUTTON_COMBO_LOC + 2);
+		LoadHalfToReg(reg4, SALTY_RUNBACK_BUTTON_COMBO_ALT_LOC + 2);
 		LoadHalfToReg(reg7, SKIP_RESULTS_BUTTON_COMBO_LOC + 2);
 		SetRegister(reg9, 0);
 		CounterLoop(reg1, 0, 8, 1); {
 			LWZU(reg5, reg2, BUTTON_PORT_OFFSET);
-			//salty runback
+			//salty runback L+R+Y
 			AND(reg8, reg5, reg6);
 			If(reg8, EQUAL, reg6); {
+				SetRegister(reg9, 0x10);
+			}EndIf();
+			//salty runback A+B
+			AND(reg8, reg5, reg4);
+			If(reg8, EQUAL, reg4); {
 				SetRegister(reg9, 0x10);
 			}EndIf();
 			//skip to CSS
@@ -504,7 +510,7 @@ void EndMatch()
 		XOR(reg1, reg1, reg9);
 		If(reg1, EQUAL_I, 0x10); {
 			SetRegister(NextSceneReg, 1);
-			LWZ(reg4, reg3, 0); //keep hold to puase flag
+			LWZ(reg4, reg3, 0); //keep hold to pause flag
 			STW(reg6, reg5, 0); //clear endless friendlies flag
 		}EndIf();
 

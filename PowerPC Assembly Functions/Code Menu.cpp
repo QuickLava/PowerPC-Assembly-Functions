@@ -973,6 +973,9 @@ void CreateMenu(Page MainPage)
 	//Random Teams
 	AddValueToByteArray(RANDOM_TEAMS_INDEX, Header);
 
+	//Salty Runback Alternate Combo
+	AddValueToByteArray(BUTTON_A | BUTTON_B, Header); 
+
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
 	DSB[0x4 / 4] = 0xFFFFFFFF;
