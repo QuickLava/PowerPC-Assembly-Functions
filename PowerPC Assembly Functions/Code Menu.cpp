@@ -78,6 +78,7 @@ int SALTY_REROLL_INDEX = -1; //new T+ code!
 int RANDOM_TEAMS_INDEX = -1;
 int HITFALLING_TOGGLE_INDEX = -1;
 int GRABS_TRADE_INDEX = -1;
+int GROUNDED_ASDI_DOWN_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -289,6 +290,7 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
 	OnHitLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
+	OnHitLines.push_back(new Toggle("Grounded ASDI Down", true, GROUNDED_ASDI_DOWN_INDEX));
 	OnHitLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
 	OnHitLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, (2. / 3.), (1. / 12.), CROUCH_KNOCKBACK_INDEX, "%.2fx"));
@@ -985,6 +987,9 @@ void CreateMenu(Page MainPage)
 
 	//Grabs Trade behavior toggle
 	AddValueToByteArray(GRABS_TRADE_INDEX, Header);
+
+	//Grounded ASDI Down toggle
+	AddValueToByteArray(GROUNDED_ASDI_DOWN_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
