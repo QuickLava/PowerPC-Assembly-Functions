@@ -133,7 +133,7 @@ void CodeMenu()
 	Page TestPage("Testing flags", TestLines);
 #endif
 
-	vector<Line*> ShieldColorLines;
+	/*vector<Line*> ShieldColorLines;
 	ShieldColorLines.push_back(new Comment("Customize your Shield Color settings"));
 	ShieldColorLines.push_back(new Comment(""));
 	ShieldColorLines.push_back(new Integer("Outer Circle Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
@@ -152,7 +152,7 @@ void CodeMenu()
 	ShieldColorLines.push_back(new Integer("Main Shield Color Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
 	ShieldColorLines.push_back(new Integer("Main Shield Color Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
 	ShieldColorLines.push_back(new Integer("Main Shield Color Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));
-	Page ShieldColorCodes("Shield Color Settings", ShieldColorLines);
+	Page ShieldColorCodes("Shield Color Settings", ShieldColorLines);*/
 
 	//player pages
 	vector<Line*> P1Lines;
@@ -161,7 +161,7 @@ void CodeMenu()
 	P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Toggle("Infinite Shield", false, INFINITE_SHIELDS_P1_INDEX));
-	P1Lines.push_back(&ShieldColorCodes.CalledFromLine);
+	//P1Lines.push_back(&ShieldColorCodes.CalledFromLine); it works fine, just the others dont
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Selection("P1 Character Select", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P1_INDEX));
 	//P1Lines.push_back(new Selection("P1 Identity Crisis", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P1_INDEX));
