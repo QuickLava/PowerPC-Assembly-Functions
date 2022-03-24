@@ -984,8 +984,8 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	unsigned int StagelistId_Default = 0;
 	unsigned int StagelistId_PMBR = 1;
 	//unsigned int StagelistId_Canada = 2;
-	unsigned int StagelistId_Spain = 3;
-	unsigned int StagelistId_Australia = 4;
+	unsigned int StagelistId_Spain = 2;
+	unsigned int StagelistId_Australia = 3;
 	unsigned int StagelistId_PPlus = 7;
 
 	unsigned int RandomStageSelect01_PMBR = 0x00021000; unsigned int RandomStageSelect23_PMBR = 0x15200017;
