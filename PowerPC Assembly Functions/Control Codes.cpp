@@ -393,6 +393,8 @@ void EndMatch()
 	int reg7 = 25;
 	int reg8 = 24;
 	int reg9 = 23;
+	int reg10 = 22;
+	int reg11 = 21;
 	int NextSceneReg = 16;
 	int MainBufferReg = 15;
 	int oldSceneReg = 14;
@@ -481,6 +483,9 @@ void EndMatch()
 			AND(reg8, reg5, reg6);
 			If(reg8, EQUAL, reg6); {
 				SetRegister(reg9, 0x10);
+				SetRegister(reg10, 0x58);
+				SetRegister(reg11, STAGE_LOAD_FLAG_LOC);
+				STB(reg10, reg11, 0); // write X to P+'s stage system to signify don't reload stage
 			}EndIf();
 			//salty runback A+B
 			AND(reg8, reg5, reg4);
@@ -978,13 +983,13 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 
 	unsigned int StagelistId_Default = 0;
 	unsigned int StagelistId_PMBR = 1;
-	unsigned int StagelistId_Canada = 2;
+	//unsigned int StagelistId_Canada = 2;
 	unsigned int StagelistId_Spain = 3;
 	unsigned int StagelistId_Australia = 4;
 	unsigned int StagelistId_PPlus = 7;
 
 	unsigned int RandomStageSelect01_PMBR = 0x00021000; unsigned int RandomStageSelect23_PMBR = 0x15200017;
-	unsigned int RandomStageSelect01_Canada = 0x00021000; unsigned int RandomStageSelect23_Canada = 0x15200407;
+	//unsigned int RandomStageSelect01_Canada = 0x00021000; unsigned int RandomStageSelect23_Canada = 0x15200407;
 	unsigned int RandomStageSelect01_Spain = 0x00020000; unsigned int RandomStageSelect23_Spain = 0x15200407;
 	unsigned int RandomStageSelect01_Australia = 0x00021000; unsigned int RandomStageSelect23_Australia = 0x54640407;
 	unsigned int RandomStageSelect01_PPlus = 0x00021000; unsigned int RandomStageSelect23_PPlus = 0x55640417;
@@ -993,9 +998,9 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	If(reg5, EQUAL_I, StagelistId_PMBR); {
 		SetRegister(reg8, RandomStageSelect23_PMBR);
 		SetRegister(reg9, RandomStageSelect01_PMBR);
-	} Else(); If(reg5, EQUAL_I, StagelistId_Canada); {
-		SetRegister(reg8, RandomStageSelect23_Canada);
-		SetRegister(reg9, RandomStageSelect01_Canada);
+	//} Else(); If(reg5, EQUAL_I, StagelistId_Canada); {
+	//	SetRegister(reg8, RandomStageSelect23_Canada);
+	//	SetRegister(reg9, RandomStageSelect01_Canada);
 	} Else(); If(reg5, EQUAL_I, StagelistId_Spain); {
 		SetRegister(reg8, RandomStageSelect23_Spain);
 		SetRegister(reg9, RandomStageSelect01_Spain);
@@ -1008,7 +1013,7 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	} Else(); {
 		LWZ(reg8, reg2, 0x24);
 		LWZ(reg9, reg2, 0x20);
-	} EndIf(); EndIf(); EndIf(); EndIf(); EndIf();
+	} EndIf(); EndIf(); EndIf(); EndIf(); //EndIf();
 
 	// get and invert stage strike table
 	LoadWordToReg(reg5, 0x8053E574);
