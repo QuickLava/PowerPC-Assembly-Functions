@@ -991,7 +991,7 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	unsigned int RandomStageSelect01_PMBR = 0x00021000; unsigned int RandomStageSelect23_PMBR = 0x15200017;
 	//unsigned int RandomStageSelect01_Canada = 0x00021000; unsigned int RandomStageSelect23_Canada = 0x15200407;
 	unsigned int RandomStageSelect01_Spain = 0x00020000; unsigned int RandomStageSelect23_Spain = 0x15200407;
-	unsigned int RandomStageSelect01_Australia = 0x00021000; unsigned int RandomStageSelect23_Australia = 0x54640407;
+	unsigned int RandomStageSelect01_Australia = 0x00021000; unsigned int RandomStageSelect23_Australia = 0x54240007;
 	unsigned int RandomStageSelect01_PPlus = 0x00021000; unsigned int RandomStageSelect23_PPlus = 0x55640417;
 
 	LoadWordToReg(reg5, STAGELIST_INDEX + Line::VALUE);
