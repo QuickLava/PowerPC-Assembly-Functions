@@ -21,9 +21,11 @@ using namespace std;
 
 // Set asm output path here:
 #if DOLPHIN_BUILD
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\ProjectMCodes\\GCTRM\\Tourney+\\Source\\Netplay\\Net-CodeMenu.asm";
+//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\ProjectMCodes\\GCTRM\\Tourney+\\Source\\Netplay\\Net-CodeMenu.asm";
+static string OutputAsmPath = "./Net-CodeMenu.asm";
 #else
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\ProjectMCodes\\GCTRM\\Tourney+\\Source\\Project+\\CodeMenu.asm";
+//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\ProjectMCodes\\GCTRM\\Tourney+\\Source\\Project+\\CodeMenu.asm";
+static string OutputAsmPath = "./CodeMenu.asm";
 #endif
 
 // --- Optional Settings ---
