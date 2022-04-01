@@ -121,6 +121,11 @@ int SHIELD_ALPHA_4 = -1;
 
 int tets = 0x935fe30C;
 
+#if (BUILD_TYPE == PROJECT_PLUS) && (PROJECT_PLUS_EX_BUILD == true)
+vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Knuckles", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Ridley", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
+vector<u16> CHARACTER_ID_LIST = { 12, 10, 30, 35, 28, 1, 21, 7, 22, 44, 16, 37, 34, 39, 6, 53, 2, 36, 27, 9, 0, 19, 24, 51, 20, 11, 26, 13, 8, 25, 38, 56, 50, 3, 15, 42, 43, 17, 32, 40, 23, 45, 41, 5, 14, 4 };
+#endif
+
 void CodeMenu()
 {
 #if EON_DEBUG_BUILD

@@ -23,6 +23,12 @@ typedef unsigned char u8;
 #define DOLPHIN_BUILD false
 #define EON_DEBUG_BUILD false
 #define TOURNAMENT_ADDITION_BUILD false
+#define PROJECT_PLUS_EX_BUILD true
+// Note: Only T+EX Builds should be using this, so setting PROJECT_PLUS_EX_BUILD to false will force this off as well.
+#define USE_NEW_PPEX_DIR (false && PROJECT_PLUS_EX_BUILD)
+// Controls whether or not externally defined characters are added to the code menu.
+#define COLLECT_EXTERNAL_EX_CHARACTERS true
+
 
 //ROTC floating offsets
 #define FS_20_0 -0x7920
@@ -33,11 +39,17 @@ typedef unsigned char u8;
 
 const vector<float> DEFAULT_CAMERA_MATRIX = { 1,0,0,0, 0,1,0,0, 0,0,1,-64 };
 
+
 #if BUILD_TYPE == PROJECT_PLUS
-const string MAIN_FOLDER = "Tourney+";
+	#if USE_NEW_PPEX_DIR == true
+	const string MAIN_FOLDER = "T+EX/./.";
+	#else
+	const string MAIN_FOLDER = "Tourney+";
+	#endif
 #else
 const string MAIN_FOLDER = "LegacyTE";
 #endif
+
 
 ///addresses start
 
