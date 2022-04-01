@@ -25,7 +25,7 @@ typedef unsigned char u8;
 #define TOURNAMENT_ADDITION_BUILD false
 #define PROJECT_PLUS_EX_BUILD true
 // Note: Only T+EX Builds should be using this, so setting PROJECT_PLUS_EX_BUILD to false will force this off as well.
-#define USE_NEW_PPEX_DIR (false && PROJECT_PLUS_EX_BUILD)
+#define USE_NEW_PPEX_DIR (true && PROJECT_PLUS_EX_BUILD)
 // Controls whether or not externally defined characters are added to the code menu.
 #define COLLECT_EXTERNAL_EX_CHARACTERS true
 
