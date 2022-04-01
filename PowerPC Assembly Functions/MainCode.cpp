@@ -15,6 +15,7 @@
 #include "IkeClimbers.h"
 #include "AIDisplay.h"
 #include "C++Injection.h"
+#include "_AdditionalCode.h"
 //#include "FPS Display.h"
 using namespace std;
 
@@ -38,6 +39,90 @@ int main()
 {	
 
 	string TextPath = "../ASM.txt";
+
+
+#if COLLECT_EXTERNAL_EX_CHARACTERS == true
+	std::ofstream codeMenuLogOutput;
+	codeMenuLogOutput.open(changelogFileName);
+	codeMenuLogOutput << "PowerPC Assembly Functions (Code Menu Building Utility)\n";
+	std::cout << "PowerPC Assembly Functions (Code Menu Building Utility)\n";
+	codeMenuLogOutput << "Adding Characters to Code Menu from \"" << exCharInputFileName << "\"...\n";
+	std::cout << "Adding Characters to Code Menu from \"" << exCharInputFileName << "\"...\n";
+
+	bool exCharInputOpenedSuccessfully = 0;
+	std::vector<std::pair<std::string, u16>> nameIDPairs = lava::collectNameSlotIDPairs(exCharInputFileName, exCharInputOpenedSuccessfully);
+	if (exCharInputOpenedSuccessfully)
+	{
+		if (nameIDPairs.size())
+		{
+			// Builds a map from the predefined character and character ID lists.
+			// Doing it this way ensures that paired values stay together, and handles sorting automatically when we insert new entries.
+			std::map<std::string, u16> zippedIDMap;
+			for (int i = 0; i < CHARACTER_LIST.size(); i++)
+			{
+				zippedIDMap.insert(std::make_pair(CHARACTER_LIST[i], CHARACTER_ID_LIST[i]));
+			}
+			for (int i = 0; i < nameIDPairs.size(); i++)
+			{
+				std::pair<std::string, u16>* currPair = &nameIDPairs[i];
+				if (currPair->second != SHRT_MAX)
+				{
+					auto itr = zippedIDMap.insert(*currPair);
+					// If the entry was newly added to the list (ie. not overwriting existing data), announce it.
+					if (itr.second)
+					{
+						std::cout << "[ADDED] " << itr.first->first << " (Slot ID = 0x" << lava::numToHexStringWithPadding(itr.first->second, 2) << ")\n";
+						codeMenuLogOutput << "[ADDED] " << itr.first->first << " (Slot ID = 0x" << lava::numToHexStringWithPadding(itr.first->second, 2) << ")\n";
+					}
+					// Otherwise, announce what was changed.
+					else if (itr.first != zippedIDMap.end())
+					{
+						itr.first->second = currPair->second;
+						std::cout << "[CHANGED] " << itr.first->first << " (Slot ID = 0x" << lava::numToHexStringWithPadding(itr.first->second, 2) << ")\n";
+						codeMenuLogOutput << "[CHANGED] " << itr.first->first << " (Slot ID = 0x" << lava::numToHexStringWithPadding(itr.first->second, 2) << ")\n";
+					}
+				}
+				else
+				{
+					std::cerr << "[ERROR] Invalid Slot ID specified! The character \"" << currPair->first << "\" will not be added to the Code Menu!\n";
+					codeMenuLogOutput << "[ERROR] Invalid Slot ID specified! The character \"" << currPair->first << "\" will not be added to the Code Menu!\n";
+				}
+			}
+
+			// Write the newly edited list back into the list vectors
+			CHARACTER_LIST.clear();
+			CHARACTER_ID_LIST.clear();
+			for (auto itr = zippedIDMap.begin(); itr != zippedIDMap.end(); itr++)
+			{
+				CHARACTER_LIST.push_back(itr->first);
+				CHARACTER_ID_LIST.push_back(itr->second);
+			}
+		}
+		else
+		{
+			std::cout << "[WARNING] \"" << exCharInputFileName << "\" was opened successfully, but no valid character entries could be found.\n";
+			codeMenuLogOutput << "[WARNING] \"" << exCharInputFileName << "\" was opened successfully, but no valid character entries could be found.\n";
+		}
+	}
+	else
+	{
+		std::cout << "[ERROR] Couldn't open \"" << exCharInputFileName << "\"! Ensure that the file is present in this folder and try again!\n";
+		codeMenuLogOutput << "[ERROR] Couldn't open \"" << exCharInputFileName << "\"! Ensure that the file is present in this folder and try again!\n";
+	}
+	//Print the results.
+	std::cout << "\nFinal Character List:\n";
+	codeMenuLogOutput << "\nFinal Character List:\n";
+	for (std::size_t i = 0; i < CHARACTER_LIST.size(); i++)
+	{
+		std::cout << "\t" << CHARACTER_LIST[i] << " (Slot ID = 0x" << lava::numToHexStringWithPadding(CHARACTER_ID_LIST[i], 2) << ")\n";
+		codeMenuLogOutput << "\t" << CHARACTER_LIST[i] << " (Slot ID = 0x" << lava::numToHexStringWithPadding(CHARACTER_ID_LIST[i], 2) << ")\n";
+	}
+
+	std::cout << "\n";
+	codeMenuLogOutput << "\n";
+#endif
+
+
 	CodeStart(TextPath);
 	//place all ASM code here
 

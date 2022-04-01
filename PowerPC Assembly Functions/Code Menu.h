@@ -123,6 +123,7 @@ const vector<u8> CODE_MENU_CLASSIC_CONVERSION_TABLE = { 3, 0, 4, 10, 8, 11, 9, 4
 #if BUILD_TYPE == PROJECT_PLUS
 	#if PROJECT_PLUS_EX_BUILD == true
 	const string exCharInputFileName = "EX_Characters.txt";
+	const string changelogFileName = "EX_Characters_Changelog.txt";
 	extern vector<string> CHARACTER_LIST;
 	extern vector<u16> CHARACTER_ID_LIST;
 	#elif PROJECT_PLUS_EX_BUILD == false
