@@ -980,7 +980,7 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(RANDOM_TEAMS_INDEX, Header);
 
 	//Salty Runback Alternate Combo
-	AddValueToByteArray(BUTTON_A | BUTTON_B, Header); 
+	AddValueToByteArray(BUTTON_L | BUTTON_R | BUTTON_B, Header);
 
 	//Hitfalling toggle
 	AddValueToByteArray(HITFALLING_TOGGLE_INDEX, Header);
