@@ -55,7 +55,6 @@ bool MakeASM(string TextFilePath, string OutputAsmPath)
 int main()
 {
 	std::cout << "PowerPC Assembly Functions (Code Menu Building Utility " << lava::version << ")\n";
-	std::cout << "Modified for use with P+ Tournament Addition!\n";
 	if (lava::folderExists(outputFolder))
 	{
 		initMenuFileStream();
@@ -64,7 +63,6 @@ int main()
 		std::ofstream codeMenuLogOutput;
 		codeMenuLogOutput.open(outputFolder + changelogFileName);
 		codeMenuLogOutput << "PowerPC Assembly Functions (Code Menu Building Utility " << lava::version << ")\n";
-		codeMenuLogOutput << "Modified for use with P+ Tournament Addition!\n";
 		codeMenuLogOutput << "Building \"" << cmnuFileName << "\" for ";
 		std::cout << "Building \"" << cmnuFileName << "\" for ";
 		switch (BUILD_TYPE)
@@ -85,18 +83,13 @@ int main()
 		{
 			if (PROJECT_PLUS_EX_BUILD == true)
 			{
-				if (!USE_NEW_PPEX_DIR)
-				{
-					codeMenuLogOutput << "Pre v1.2 ";
-					std::cout << "Pre v1.2 ";
-				}
-				codeMenuLogOutput << "Project+ EX";
-				std::cout << "Project+ EX";
+				codeMenuLogOutput << "Tournament Addition EX";
+				std::cout << "Tournament Addition EX";
 			}
 			else
 			{
-				codeMenuLogOutput << "Project+";
-				std::cout << "Project+";
+				codeMenuLogOutput << "Tournament Addition";
+				std::cout << "Tournament Addition";
 			}
 			break;
 		}
@@ -130,12 +123,6 @@ int main()
 			codeMenuLogOutput << "Attempting to use this code menu on console can (and likely will) damage your system.\n";
 			std::cout << "Note: This code menu was configured for use with Dolphin only, and IS NOT COMPATIBLE with consoles!\n";
 			std::cout << "Attempting to use this code menu on console can (and likely will) damage your system.\n";
-		}
-
-		if (TOURNAMENT_ADDITION_BUILD == true)
-		{
-			codeMenuLogOutput << "Note: Tournament Addition Flag is ON!\n";
-			std::cout << "Note: Tournament Addition Flag is ON!\n";
 		}
 		if (IS_DEBUGGING == true)
 		{

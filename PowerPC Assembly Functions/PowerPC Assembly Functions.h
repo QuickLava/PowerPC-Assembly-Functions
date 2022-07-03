@@ -32,7 +32,7 @@ typedef unsigned char u8;
 #define BUILD_NETPLAY_FILES (false && DOLPHIN_BUILD)
 // Controls whether or not externally defined characters are added to the code menu.
 // Relevant constants are defined in "Code Menu.cpp", and relevant code found in "MainCode.cpp".
-#define COLLECT_EXTERNAL_EX_CHARACTERS false
+#define COLLECT_EXTERNAL_EX_CHARACTERS true
 
 //ROTC floating offsets
 #define FS_20_0 -0x7920
