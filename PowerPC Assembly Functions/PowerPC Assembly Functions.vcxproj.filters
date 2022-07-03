@@ -81,6 +81,9 @@
     <ClInclude Include="C++Injection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="_AdditionalCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PowerPC Assembly Functions.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C++Injection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_AdditionalCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

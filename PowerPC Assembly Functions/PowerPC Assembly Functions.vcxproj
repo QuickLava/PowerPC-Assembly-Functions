@@ -183,6 +183,7 @@
     <ClInclude Include="StopDPadOnSSS %28except Wiimote%29.h" />
     <ClInclude Include="Tag Based Costumes.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="_AdditionalCode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIDisplay.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="StopStartAlts.cpp" />
     <ClCompile Include="StopDPadOnSSS %28except Wiimote%29.cpp" />
     <ClCompile Include="Tag Based Costumes.cpp" />
+    <ClCompile Include="_AdditionalCode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

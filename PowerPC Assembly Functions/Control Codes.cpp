@@ -69,11 +69,7 @@ void LoadCodeMenu()
 	int reg1 = 31;
 	int reg2 = 30;
 
-#if BUILD_TYPE == PROJECT_PLUS
-	LoadFile("/menu3/data.cmnu", START_OF_CODE_MENU_HEADER, reg1, reg2, false);
-#else
-	LoadFile(MAIN_FOLDER + "/cm.bin", START_OF_CODE_MENU_HEADER, reg1, reg2);
-#endif
+	LoadFile(MAIN_FOLDER + "/" + cmnuBuildLocationDirectory + cmnuFileName, START_OF_CODE_MENU_HEADER, reg1, reg2);
 
 	/*SetRegister(reg1, STRING_BUFFER);
 

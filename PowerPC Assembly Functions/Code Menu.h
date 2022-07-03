@@ -119,16 +119,108 @@ const vector<u8> CODE_MENU_WIIMOTE_CONVERSION_TABLE = { 2, 3, 1, 0, 12, 31, 31, 
 const vector<u8> CODE_MENU_WIICHUCK_CONVERSION_TABLE = { 0, 1, 2, 3, 12, 31, 31, 31, 31, 31, 9, 8, 10, 4, 11, 31 };
 const vector<u8> CODE_MENU_CLASSIC_CONVERSION_TABLE = { 3, 0, 4, 10, 8, 11, 9, 4, 31, 5, 12, 31, 12, 6, 2, 1 }; //1 to 1
 
-#ifdef RIDLEY
-const vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Knuckles", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Ridley", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
-const vector<u16> CHARACTER_ID_LIST = { 12, 10, 30, 35, 28, 1, 21, 7, 22, 44, 16, 37, 34, 39, 6, 53, 2, 36, 27, 9, 0, 19, 24, 51, 20, 11, 26, 13, 8, 25, 38, 56, 50, 3, 15, 42, 43, 17, 32, 40, 23, 45, 41, 5, 14, 4 };
-#elif BUILD_TYPE == PROJECT_PLUS
-const vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Knuckles", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
-const vector<u16> CHARACTER_ID_LIST = { 12, 10, 30, 35, 28, 1, 21, 7, 22, 44, 16, 37, 34, 39, 6, 53, 2, 36, 27, 9, 0, 19, 24, 51, 20, 11, 26, 13, 8, 25, 38, 50, 3, 15, 42, 43, 17, 32, 40, 23, 45, 41, 5, 14, 4 };
-#else
-const vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
-const vector<u16> CHARACTER_ID_LIST = { 12, 10, 30, 35, 28, 1, 21, 7, 22, 44, 16, 37, 34, 39, 6, 2, 36, 27, 9, 0, 19, 24, 51, 20, 11, 26, 13, 8, 25, 38, 50, 3, 15, 42, 43, 17, 32, 40, 23, 45, 41, 5, 14, 4 };
-#endif
+
+
+
+// Enumeration of all predefined characters' Slot IDs.
+enum LAVA_CHARA_SLOT_IDS
+{
+	LCSI_BOWSER = 0x0C,
+	LCSI_CAPTAIN_FALCON = 0x0A,
+	LCSI_CHARIZARD = 0x1E,
+	LCSI_DEDEDE = 0x23,
+	LCSI_DIDDY_KONG = 0x1C,
+	LCSI_DONKEY_KONG = 0x01,
+	LCSI_FALCO = 0x15,
+	LCSI_FOX = 0x07,
+	LCSI_GANONDORF = 0x16,
+	LCSI_GIGA_BOWSER = 0x2C,
+	LCSI_ICE_CLIMBERS = 0x10,
+	LCSI_IKE = 0x25,
+	LCSI_IVYSAUR = 0x22,
+	LCSI_JIGGLYPUFF = 0x27,
+	LCSI_KIRBY = 0x06,
+	LCSI_LINK = 0x02,
+	LCSI_LUCARIO = 0x24,
+	LCSI_LUCAS = 0x1B,
+	LCSI_LUIGI = 0x09,
+	LCSI_MARIO = 0x00,
+	LCSI_MARTH = 0x13,
+	LCSI_META_KNIGHT = 0x18,
+	LCSI_MR_GAME_AND_WATCH = 0x14,
+	LCSI_NESS = 0x0B,
+	LCSI_OLIMAR = 0x1A,
+	LCSI_PEACH = 0x0D,
+	LCSI_PIKACHU = 0x08,
+	LCSI_PIT = 0x19,
+	LCSI_POKETRAINER = 0x48,
+	LCSI_POKETRAINER_CHARIZARD = 0x1D,
+	LCSI_POKETRAINER_IVYSAUR = 0x21,
+	LCSI_POKETRAINER_SQUIRTLE = 0x1F,
+	LCSI_ROB = 0x26,
+	LCSI_SAMUS = 0x03,
+	LCSI_SHEIK = 0x0F,
+	LCSI_SNAKE = 0x2A,
+	LCSI_SONIC = 0x2B,
+	LCSI_SOPO = 0x11,
+	LCSI_SQUIRTLE = 0x20,
+	LCSI_TOON_LINK = 0x28,
+	LCSI_WARIO = 0x17,
+	LCSI_WARIOMAN = 0x2D,
+	LCSI_WOLF = 0x29,
+	LCSI_YOSHI = 0x05,
+	LCSI_ZELDA = 0x0E,
+	LCSI_ZERO_SUIT_SAMUS = 0x04,
+	LCSI_ROY = 0x32,
+	LCSI_MEWTWO = 0x33,
+	LCSI_KNUCKLES = 0x35,
+	LCSI_RIDLEY = 0x38,
+	LCSI_WALUIGI = 0x39,
+	LCSI_DARK_SAMUS = 0x39,
+	LCSI_ALLOY_RED = 0x6A,
+	LCSI_ALLOY_BLUE = 0x6B,
+	LCSI_ALLOY_YELLOW = 0x6C,
+	LCSI_ALLOY_GREEN = 0x6D,
+};
+
+// Declares existence of the two main character lists.
+// These are populated with predefined lists in "Code Menu.cpp".
+// If COLLECT_EXTERNAL_EX_CHARACTERS (in "PowerPC Assembly Functions.h") is set to true,
+// additional EX Character declarations will be collected from the file described by exCharInputFilename (see "Code Menu.cpp").
+extern vector<string> CHARACTER_LIST;
+extern vector<u16> CHARACTER_ID_LIST;
+
+// The stream for the MenuFile.
+// Path is no longer specified in this line, is instead controlled by the below paths and applied in initMenuFileStream().
+static fstream MenuFile;
+void initMenuFileStream();
+
+// Logging and Input Constants
+extern const std::string outputFolder;
+extern const std::string exCharInputFileName;
+extern const std::string changelogFileName;
+// Code Menu Output Constants
+extern const std::string asmFileName;
+extern const std::string asmTextFileName;
+extern const std::string cmnuFileName;
+extern const std::string asmOutputFilePath;
+extern const std::string cmnuOutputFilePath;
+extern const std::string asmTextOutputFilePath;
+extern const std::string asmBuildLocationDirectory;
+extern const std::string cmnuBuildLocationDirectory;
+extern const std::string asmBuildLocationFilePath;
+extern const std::string cmnuBuildLocationFilePath;
+// AutoGCTRM Constants
+extern const std::string buildFolder;
+extern const std::string GCTRMExePath;
+extern const std::string GCTRMCommandBase;
+extern const std::string mainGCTName;
+extern const std::string mainGCTFile;
+extern const std::string mainGCTTextFile;
+extern const std::string boostGCTName;
+extern const std::string boostGCTFile;
+extern const std::string boostGCTTextFile;
+
 
 
 
@@ -320,7 +412,6 @@ static int CurrentOffset = START_OF_CODE_MENU;
 #define FRAMES_WAITED_DURING_SLOW_MOTION 3
 
 static vector<int> Defaults;
-static fstream MenuFile("C:\\Users\\AZPM\\Downloads\\DesiacXs_Code_Menu\\PowerPC-Assembly-Functions-master\\output\\data.cmnu", fstream::out | fstream::binary);
 
 
 class Page;
@@ -394,7 +485,7 @@ public:
 
 	int* Index = nullptr;
 	u32 numArgs;
-	u32 Value;
+	u32 Value = 0xFFFFFFFF;
 	u32 Default;
 	u32 Max;
 	u32 Min;

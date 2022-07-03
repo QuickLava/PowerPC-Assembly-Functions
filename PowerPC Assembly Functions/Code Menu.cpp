@@ -121,6 +121,97 @@ int SHIELD_ALPHA_4 = -1;
 
 int tets = 0x935fe30C;
 
+
+#if BUILD_TYPE == PROJECT_PLUS
+// Character List Configuration Block for Project+ Based Builds
+	#if PROJECT_PLUS_EX_BUILD == false
+	// Character Lists for Project+ (Non-EX)
+	// Additions relative to vanilla Project M are:
+	//	- Knuckles (P+): Slot ID 53 (0x35)
+	vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Knuckles", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
+	vector<u16> CHARACTER_ID_LIST = { LCSI_BOWSER, LCSI_CAPTAIN_FALCON, LCSI_CHARIZARD, LCSI_DEDEDE, LCSI_DIDDY_KONG, LCSI_DONKEY_KONG, LCSI_FALCO, LCSI_FOX, LCSI_GANONDORF, LCSI_GIGA_BOWSER, LCSI_ICE_CLIMBERS, LCSI_IKE, LCSI_IVYSAUR, LCSI_JIGGLYPUFF, LCSI_KIRBY, LCSI_KNUCKLES, LCSI_LINK, LCSI_LUCARIO, LCSI_LUCAS, LCSI_LUIGI, LCSI_MARIO, LCSI_MARTH, LCSI_META_KNIGHT, LCSI_MEWTWO, LCSI_MR_GAME_AND_WATCH, LCSI_NESS, LCSI_OLIMAR, LCSI_PEACH, LCSI_PIKACHU, LCSI_PIT, LCSI_ROB, LCSI_ROY, LCSI_SAMUS, LCSI_SHEIK, LCSI_SNAKE, LCSI_SONIC, LCSI_SOPO, LCSI_SQUIRTLE, LCSI_TOON_LINK, LCSI_WARIO, LCSI_WARIOMAN, LCSI_WOLF, LCSI_YOSHI, LCSI_ZELDA, LCSI_ZERO_SUIT_SAMUS };
+	#elif PROJECT_PLUS_EX_BUILD == true
+	// Character Lists for Project+ EX
+	// Additions relative to vanilla Project M are:
+	//	- Knuckles (P+): Slot ID 53 (0x35)
+	//	- Ridley (P+EX): Slot ID 56 (0x38)
+	vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Knuckles", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Ridley", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
+	vector<u16> CHARACTER_ID_LIST = { LCSI_BOWSER, LCSI_CAPTAIN_FALCON, LCSI_CHARIZARD, LCSI_DEDEDE, LCSI_DIDDY_KONG, LCSI_DONKEY_KONG, LCSI_FALCO, LCSI_FOX, LCSI_GANONDORF, LCSI_GIGA_BOWSER, LCSI_ICE_CLIMBERS, LCSI_IKE, LCSI_IVYSAUR, LCSI_JIGGLYPUFF, LCSI_KIRBY, LCSI_KNUCKLES, LCSI_LINK, LCSI_LUCARIO, LCSI_LUCAS, LCSI_LUIGI, LCSI_MARIO, LCSI_MARTH, LCSI_META_KNIGHT, LCSI_MEWTWO, LCSI_MR_GAME_AND_WATCH, LCSI_NESS, LCSI_OLIMAR, LCSI_PEACH, LCSI_PIKACHU, LCSI_PIT, LCSI_ROB, LCSI_RIDLEY, LCSI_ROY, LCSI_SAMUS, LCSI_SHEIK, LCSI_SNAKE, LCSI_SONIC, LCSI_SOPO, LCSI_SQUIRTLE, LCSI_TOON_LINK, LCSI_WARIO, LCSI_WARIOMAN, LCSI_WOLF, LCSI_YOSHI, LCSI_ZELDA, LCSI_ZERO_SUIT_SAMUS };
+	#endif
+#else
+// Default Character Lists
+// Reflects vanilla Project M's character set, no additions relative to vanilla PM
+vector<string> CHARACTER_LIST = { "Bowser", "Captain Falcon", "Charizard", "Dedede", "Diddy Kong", "Donkey Kong", "Falco", "Fox", "Ganondorf", "Giga Bowser", "Ice Climbers", "Ike", "Ivysaur", "Jigglypuff", "Kirby", "Link", "Lucario", "Lucas", "Luigi", "Mario", "Marth", "Meta Knight", "Mewtwo", "Mr. Game and Watch", "Ness", "Olimar", "Peach", "Pikachu", "Pit", "R.O.B.", "Roy", "Samus", "Sheik", "Snake", "Sonic", "Sopo", "Squirtle", "Toon Link", "Wario", "Warioman", "Wolf", "Yoshi", "Zelda", "Zero Suit Samus" };
+vector<u16> CHARACTER_ID_LIST = { LCSI_BOWSER, LCSI_CAPTAIN_FALCON, LCSI_CHARIZARD, LCSI_DEDEDE, LCSI_DIDDY_KONG, LCSI_DONKEY_KONG, LCSI_FALCO, LCSI_FOX, LCSI_GANONDORF, LCSI_GIGA_BOWSER, LCSI_ICE_CLIMBERS, LCSI_IKE, LCSI_IVYSAUR, LCSI_JIGGLYPUFF, LCSI_KIRBY, LCSI_LINK, LCSI_LUCARIO, LCSI_LUCAS, LCSI_LUIGI, LCSI_MARIO, LCSI_MARTH, LCSI_META_KNIGHT, LCSI_MEWTWO, LCSI_MR_GAME_AND_WATCH, LCSI_NESS, LCSI_OLIMAR, LCSI_PEACH, LCSI_PIKACHU, LCSI_PIT, LCSI_ROB, LCSI_ROY, LCSI_SAMUS, LCSI_SHEIK, LCSI_SNAKE, LCSI_SONIC, LCSI_SOPO, LCSI_SQUIRTLE, LCSI_TOON_LINK, LCSI_WARIO, LCSI_WARIOMAN, LCSI_WOLF, LCSI_YOSHI, LCSI_ZELDA, LCSI_ZERO_SUIT_SAMUS };
+#endif
+
+const std::string outputFolder = "./Code_Menu_Output/";
+const std::string exCharInputFileName = "EX_Characters.txt";
+const std::string buildFolder = ".././";
+const std::string GCTRMExePath = buildFolder + "GCTRealMate.exe";
+const std::string GCTRMCommandBase = "\"" + GCTRMExePath + "\" -g -l ";
+
+// !!Important Note on cmnuFileName and cmnuBuildLocationDirectory!!
+// These variables are also referenced in "Control Codes.cpp"'s "LoadCodeMenu" function,
+// in which they're directly used to determine where the game will look for the Code Menu.
+// For that reason, please make sure you properly define those variables, as failing
+// to do so will cause general weirdness (eg. invisible shields, skipping results screen, etc). 
+#if BUILD_TYPE == PROJECT_PLUS
+// Constant Confiuguration Block for Project+ Based Builds
+	#if BUILD_NETPLAY_FILES == true
+	const std::string changelogFileName = "Net-Code_Menu_Changelog.txt";
+	const std::string mainGCTName = "NETPLAY";
+	const std::string boostGCTName = "NETBOOST";
+	const std::string asmFileName = "Net-CodeMenu.asm";
+	const std::string asmTextFileName = "Net-CodeMenu.txt";
+	const std::string cmnuFileName = "dnet.cmnu";
+	const std::string asmBuildLocationDirectory = "Source/Netplay/";
+	const std::string cmnuBuildLocationDirectory = "pf/menu3/";
+	#elif BUILD_NETPLAY_FILES == false
+	const std::string changelogFileName = "Code_Menu_Changelog.txt";
+	const std::string mainGCTName = "RSBE01";
+	const std::string boostGCTName = "BOOST";
+	const std::string asmFileName = "CodeMenu.asm";
+	const std::string asmTextFileName = "CodeMenu.txt";
+	const std::string cmnuFileName = "data.cmnu";
+	const std::string asmBuildLocationDirectory = "Source/Project+/";
+	const std::string cmnuBuildLocationDirectory = "pf/menu3/";
+	#endif
+#else
+// Default Constant Confiuguration Block (used currently by PMEX and LegacyXP)
+// Note: These builds don't use the more modern Source Folder based config, just RSBE01.gct
+//		As a result, the following constants are left blank on purpose, as they aren't used:
+//		- boostGCTName
+//		- asmFileName
+//		- asmTextFileName
+//		- asmBuildLocationDirectory
+const std::string changelogFileName = "Code_Menu_Changelog.txt";
+const std::string mainGCTName = "RSBE01";
+const std::string boostGCTName = "";
+const std::string asmFileName = "";
+const std::string asmTextFileName = "";
+const std::string cmnuFileName = "cm.bin";
+const std::string asmBuildLocationDirectory = "";
+const std::string cmnuBuildLocationDirectory = "./";
+#endif
+
+const std::string mainGCTFile = buildFolder + mainGCTName + ".GCT";
+const std::string mainGCTTextFile = buildFolder + mainGCTName + ".txt";
+const std::string boostGCTFile = buildFolder + boostGCTName + ".GCT";
+const std::string boostGCTTextFile = buildFolder + boostGCTName + ".txt";
+const std::string asmOutputFilePath = outputFolder + asmFileName;
+const std::string asmTextOutputFilePath = outputFolder + asmTextFileName;
+const std::string cmnuOutputFilePath = outputFolder + cmnuFileName;
+const std::string asmBuildLocationFilePath = buildFolder + asmBuildLocationDirectory + asmFileName;
+const std::string cmnuBuildLocationFilePath = buildFolder + cmnuBuildLocationDirectory + cmnuFileName;
+
+void initMenuFileStream()
+{
+	MenuFile.open(cmnuOutputFilePath, fstream::out | fstream::binary);
+}
+
+
+
 void CodeMenu()
 {
 #if EON_DEBUG_BUILD
