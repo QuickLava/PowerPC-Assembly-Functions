@@ -485,6 +485,12 @@ public:
 
 	int* Index = nullptr;
 	u32 numArgs;
+	// Note: This was given an initial value to ensure that program output is consistent between Release and Debug modes.
+	// This was left uninitialized previously, and wasn't always overwritten before the object was written to file.
+	// This caused garbage values to be written into the code menu file when running in Release mode,
+	// and designated null values in Debug mode (typically 0xCCCCCCCC or 0xCDCDCDCD).
+	// With this change, it'll always 0xFFFFFFFF if it isn't otherwise overwritten.
+	// It should therefore be safe to run in Release mode, and thus safe to distribute the Release executable.
 	u32 Value = 0xFFFFFFFF;
 	u32 Default;
 	u32 Max;

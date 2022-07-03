@@ -69,6 +69,10 @@ void LoadCodeMenu()
 	int reg1 = 31;
 	int reg2 = 30;
 
+	// Note: This change was made to ensure that changes to the config constants elsewhere (specifically
+	// MAIN_FOLDER in "PowerPC Assembly Functions.h", as well as cmnuBuildLocationDirectory and cmnuFileName in "Code Menu.cpp")
+	// would be automatically reflected in this function as well, without having to manually change anything here.
+	// This does result in slightly different compiled .asm for P+ based builds, but they should function identically.
 	LoadFile(MAIN_FOLDER + "/" + cmnuBuildLocationDirectory + cmnuFileName, START_OF_CODE_MENU_HEADER, reg1, reg2);
 
 	/*SetRegister(reg1, STRING_BUFFER);
