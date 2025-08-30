@@ -956,9 +956,12 @@ void CodeMenu()
 	P1Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
 	P1Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, ALC_P1_FLASH_RED_INDEX));
 	P1Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
-	P1Lines.push_back(new Comment(""));
-	P1Lines.push_back(new Print("Tag Hex: %s", { &P1_TAG_STRING_INDEX }));
-	P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	if (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED)
+	{
+		P1Lines.push_back(new Comment(""));
+		P1Lines.push_back(new Print("Tag Hex: %s", { &P1_TAG_STRING_INDEX }));
+		P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	}
 	Page P1("Player 1 Codes", P1Lines, lava::shortNameType("_PLAYER1"));
 
 	vector<Line*> P2Lines;
@@ -976,9 +979,12 @@ void CodeMenu()
 	P2Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
 	P2Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, ALC_P2_FLASH_RED_INDEX));
 	P2Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
-	P2Lines.push_back(new Comment(""));
-	P2Lines.push_back(new Print("Tag Hex: %s", { &P2_TAG_STRING_INDEX }));
-	P2Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	if (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED)
+	{
+		P1Lines.push_back(new Comment(""));
+		P1Lines.push_back(new Print("Tag Hex: %s", { &P2_TAG_STRING_INDEX }));
+		P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	}
 	Page P2("Player 2 Codes", P2Lines, lava::shortNameType("_PLAYER2"));
 
 	vector<Line*> P3Lines;
@@ -996,9 +1002,12 @@ void CodeMenu()
 	P3Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
 	P3Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, ALC_P3_FLASH_RED_INDEX));
 	P3Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
-	P3Lines.push_back(new Comment(""));
-	P3Lines.push_back(new Print("Tag Hex: %s", { &P3_TAG_STRING_INDEX }));
-	P3Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	if (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED)
+	{
+		P1Lines.push_back(new Comment(""));
+		P1Lines.push_back(new Print("Tag Hex: %s", { &P3_TAG_STRING_INDEX }));
+		P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	}
 	Page P3("Player 3 Codes", P3Lines, lava::shortNameType("_PLAYER3"));
 
 	vector<Line*> P4Lines;
@@ -1016,9 +1025,12 @@ void CodeMenu()
 	P4Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
 	P4Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, ALC_P4_FLASH_RED_INDEX));
 	P4Lines.back()->behaviorFlags[Line::lbf_HIDDEN].value = !PROJECT_PLUS_EX_BUILD;
-	P4Lines.push_back(new Comment(""));
-	P4Lines.push_back(new Print("Tag Hex: %s", { &P4_TAG_STRING_INDEX }));
-	P4Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	if (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED)
+	{
+		P1Lines.push_back(new Comment(""));
+		P1Lines.push_back(new Print("Tag Hex: %s", { &P4_TAG_STRING_INDEX }));
+		P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
+	}
 	Page P4("Player 4 Codes", P4Lines, lava::shortNameType("_PLAYER4"));
 
 	//debug mode
@@ -1259,64 +1271,67 @@ void printMenuSetters() {
 
 	SetRegister(resultHexStartReg, P1_TAG_HEX_LOC + 1);
 
-	SetRegister(tagMenuPtrReg, 0x805882e0 - 4); //this needs wiiztec's 0 to death code
+	if (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED)
+	{
+		SetRegister(tagMenuPtrReg, 0x805882e0 - 4); //this needs wiiztec's 0 to death code
 
-	for (auto tagIndex : { P1_TAG_STRING_INDEX, P2_TAG_STRING_INDEX, P3_TAG_STRING_INDEX, P4_TAG_STRING_INDEX }) {
-		if (tagIndex != -1) {
-			MR(resultPtrReg, resultHexStartReg);
+		for (auto tagIndex : { P1_TAG_STRING_INDEX, P2_TAG_STRING_INDEX, P3_TAG_STRING_INDEX, P4_TAG_STRING_INDEX }) {
+			if (tagIndex != -1) {
+				MR(resultPtrReg, resultHexStartReg);
 
-			//get menu location
-			LWZU(tagMenuReg, tagMenuPtrReg, 4);
-			If(tagMenuReg, NOT_EQUAL_I, 0); {
-				ADDI(tagMenuReg, tagMenuReg, 0x1FC);
-				LWZ(3, tagMenuReg, MENU_POS_OFFSET);
-				ADDI(3, 3, -1);
-				//check if initialized
-				If(3, LESS_I_L, 120); {
-					//get tag location
-					MULLI(3, 3, 2);
-					ADDI(3, 3, MENU_INDEX_OFFSET);
-					LHZX(3, tagMenuReg, 3);
+				//get menu location
+				LWZU(tagMenuReg, tagMenuPtrReg, 4);
+				If(tagMenuReg, NOT_EQUAL_I, 0); {
+					ADDI(tagMenuReg, tagMenuReg, 0x1FC);
+					LWZ(3, tagMenuReg, MENU_POS_OFFSET);
+					ADDI(3, 3, -1);
+					//check if initialized
 					If(3, LESS_I_L, 120); {
-						MULLI(3, 3, TAG_LIST_SIZE);
-						SetRegister(tagPtrReg, TAG_LIST_START_LOC);
-						ADD(tagPtrReg, tagPtrReg, 3);
+						//get tag location
+						MULLI(3, 3, 2);
+						ADDI(3, 3, MENU_INDEX_OFFSET);
+						LHZX(3, tagMenuReg, 3);
+						If(3, LESS_I_L, 120); {
+							MULLI(3, 3, TAG_LIST_SIZE);
+							SetRegister(tagPtrReg, TAG_LIST_START_LOC);
+							ADD(tagPtrReg, tagPtrReg, 3);
 
-						//convert tag hex to string
-						//check if entire half is not 0, then convert byte.  Might be able to just convert half, doesn't really matter
-						SetRegister(counterReg, 0);
-						LHZ(hexCharReg, tagPtrReg, 0);
-						While(hexCharReg, NOT_EQUAL_I, 0); {
-							//don't loop too many times
-							If(counterReg, LESS_OR_EQUAL_I, 4); {
-								LBZ(hexCharReg, tagPtrReg, 0);
-								MR(3, resultPtrReg);
-								MR(4, stringReg);
-								MR(5, hexCharReg);
-								WriteIntToFile(0x4cc63182); //clclr 6, 6
-								CallBrawlFunc(0x803f89fc); //sprintf
+							//convert tag hex to string
+							//check if entire half is not 0, then convert byte.  Might be able to just convert half, doesn't really matter
+							SetRegister(counterReg, 0);
+							LHZ(hexCharReg, tagPtrReg, 0);
+							While(hexCharReg, NOT_EQUAL_I, 0); {
+								//don't loop too many times
+								If(counterReg, LESS_OR_EQUAL_I, 4); {
+									LBZ(hexCharReg, tagPtrReg, 0);
+									MR(3, resultPtrReg);
+									MR(4, stringReg);
+									MR(5, hexCharReg);
+									WriteIntToFile(0x4cc63182); //clclr 6, 6
+									CallBrawlFunc(0x803f89fc); //sprintf
 
-								ADD(resultPtrReg, resultPtrReg, 3);
-								LHZU(hexCharReg, tagPtrReg, 1);
-							} Else(); {
-								//exit
-								SetRegister(hexCharReg, 0);
-							} EndIf();
-						} EndWhile();
+									ADD(resultPtrReg, resultPtrReg, 3);
+									LHZU(hexCharReg, tagPtrReg, 1);
+								} Else(); {
+									//exit
+									SetRegister(hexCharReg, 0);
+								} EndIf();
+							} EndWhile();
+						} EndIf();
 					} EndIf();
 				} EndIf();
-			} EndIf();
 
-			//null terminator
-			SetRegister(3, 0);
-			STB(3, resultPtrReg, 0);
+				//null terminator
+				SetRegister(3, 0);
+				STB(3, resultPtrReg, 0);
 
-			SetRegister(3, tagIndex);
-			ADDI(4, resultHexStartReg, -1); //move back one for $
-			STW(4, 3, 0);
+				SetRegister(3, tagIndex);
+				ADDI(4, resultHexStartReg, -1); //move back one for $
+				STW(4, 3, 0);
 
-			//next sting buffer
-			ADDI(resultHexStartReg, resultHexStartReg, P2_TAG_HEX_LOC - P1_TAG_HEX_LOC);
+				//next sting buffer
+				ADDI(resultHexStartReg, resultHexStartReg, P2_TAG_HEX_LOC - P1_TAG_HEX_LOC);
+			}
 		}
 	}
 }

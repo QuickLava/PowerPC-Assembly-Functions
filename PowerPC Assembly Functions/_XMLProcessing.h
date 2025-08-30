@@ -126,12 +126,13 @@ namespace xml
 
 	// ==================== Menu Options Parsing and Constants ====================
 
-	// Incoming Configuration XML Variables (See "Code Menu.cpp" for defaults, and "_AdditionalCode.cpp" for relevant Config Parsing code!)
+	// Incoming Configuration XML Variables (See "Code Menu.cpp" for defaults, and "_XMLProcessing.cpp" for relevant Config Parsing code!)
 	extern std::vector<std::string> CONFIG_INCOMING_COMMENTS;
 	extern bool CONFIG_DELETE_CONTROLS_COMMENTS;
 	extern bool CONFIG_PSCC_ENABLED;
 	extern bool CONFIG_DASH_ATTACK_ITEM_GRAB_ENABLED;
 	extern bool CONFIG_JUMPSQUAT_OVERRIDE_ENABLED;
+	extern bool CONFIG_DISPLAY_TAG_HEX_ENABLED;
 
 	void applyLineSettingsFromMenuOptionsTree(Page& mainPageIn, const pugi::xml_document& xmlDocumentIn, lava::outputSplitter& logOutput);
 	bool applyLineSettingsFromMenuOptionsTree(Page& mainPageIn, std::string xmlPathIn, lava::outputSplitter& logOutput);

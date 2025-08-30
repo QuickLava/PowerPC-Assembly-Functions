@@ -114,6 +114,9 @@ namespace xml
 		const std::string themeFileTag = "themeFile";
 		const std::string prefixTag = "replacementPrefix";
 
+		// Tag Costume Hex Display
+		const std::string tagHexDisplayTag = "tagCostumeDisplay";
+
 		// Dash Attack Item Grab
 		const std::string dashAttackItemGrabTag = "vBrawlItemGrab";
 
@@ -1071,6 +1074,17 @@ namespace xml
 					{
 						logOutput << "[NOTE] Comment Declaration block parsed, but no valid entries were found!\n";
 					}
+				}
+
+				// Check if a tag display line was provided...
+				foundNode = declNodeItr->child(configXMLConstants::tagHexDisplayTag.c_str());
+				if (foundNode)
+				{
+					// ... and if it was, log as such.
+					logOutput << "Tag-Based Costumes Display line detected! Parsing value...\n";
+					// Finally, parse the value of its "enabled" attribute, then store and log the result.
+					xml::CONFIG_DISPLAY_TAG_HEX_ENABLED = foundNode.attribute(configXMLConstants::enabledTag.c_str()).as_bool(CONFIG_DISPLAY_TAG_HEX_ENABLED);
+					logOutput << "[SUCCESS] Tag Hex Display will be " << (xml::CONFIG_DISPLAY_TAG_HEX_ENABLED ? "included" : "omitted") << "!\n";
 				}
 			}
 
@@ -2180,6 +2194,7 @@ namespace xml
 	bool CONFIG_PSCC_ENABLED = false;
 	bool CONFIG_DASH_ATTACK_ITEM_GRAB_ENABLED = 1;
 	bool CONFIG_JUMPSQUAT_OVERRIDE_ENABLED = 1;
+	bool CONFIG_DISPLAY_TAG_HEX_ENABLED = 0;
 
 	// Options XML
 	bool loadMenuOptionsTree(std::string xmlPathIn, pugi::xml_document& destinationDocument)
