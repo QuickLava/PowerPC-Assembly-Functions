@@ -45,6 +45,7 @@ enum characterListVersions
 	clv_PPEX_ALLOYS,
 	clv_PPEX_SCEPTILE,
 	clv_PPEX_DARK_SAMUS,
+	clv_PPEX_ZERO,
 	__clv_Count,
 };
 extern unsigned long characterListVersion;

@@ -180,6 +180,7 @@ enum LAVA_CHARA_SLOT_IDS
 	LCSI_ALLOY_BLUE = 0x6B,
 	LCSI_ALLOY_YELLOW = 0x6C,
 	LCSI_ALLOY_GREEN = 0x6D,
+	LCSI_ZERO = 0x67,
 };
 
 template <typename T1, typename T2>

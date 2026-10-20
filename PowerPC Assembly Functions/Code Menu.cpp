@@ -192,6 +192,10 @@ void buildCharacterIDLists()
 	{
 		characterNameToIDMap.emplace("Dark Samus", LCSI_DARK_SAMUS);
 	}
+	if (characterListVersion >= characterListVersions::clv_PPEX_ZERO)
+	{
+		characterNameToIDMap.emplace("Zero", LCSI_ZERO);
+	}
 
 	unzipMapToVectors(characterNameToIDMap, CHARACTER_LIST, CHARACTER_ID_LIST);
 }
