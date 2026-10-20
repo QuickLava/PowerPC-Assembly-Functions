@@ -3,7 +3,7 @@
 
 namespace lava
 {
-	const std::string builderVersion = "v1.6.6";
+	const std::string builderVersion = "v1.6.7";
 	// This is an optional string that'll print in the header of the produced log output if it's populated.
 	// If you intend to edit the builder and redistribute a compiled executable version, I'd suggest editing this to
 	// make it easier to find the repo the executable was compiled from in case someone wants to fork or otherwise reference it.
